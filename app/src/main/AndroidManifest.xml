@@ -17,15 +17,16 @@
         <activity android:name=".view.activity.boutiqueActivity">
 
         </activity>
-        <activity android:name=".view.activity.ProfileActivity">
-
-        </activity>
-        <activity android:name=".view.activity.LastNewsActivity">
+        <activity android:name=".view.activity.ProfileActivity"
+            android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".view.activity.LastNewsActivity">
+
         </activity>
         <activity android:name=".view.activity.MainActivity" />
         <activity android:name=".view.activity.WeatherSampleActivity">

@@ -6,7 +6,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.example.android.a7learntutorialapp.ApiService;
-import com.example.android.a7learntutorialapp.DataFakeGenerator;
 import com.example.android.a7learntutorialapp.adapter.NewsAdapter;
 import com.example.android.a7learntutorialapp.R;
 import com.example.android.a7learntutorialapp.datamodel.Post;

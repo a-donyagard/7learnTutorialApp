@@ -15,13 +15,20 @@ import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.example.android.a7learntutorialapp.R;
+import com.example.android.a7learntutorialapp.UserSharedPrefManager;
+import com.example.android.a7learntutorialapp.datamodel.User;
 
 public class ProfileActivity extends AppCompatActivity {
+    private User user = new User();
+    private UserSharedPrefManager prefManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        prefManager = new UserSharedPrefManager(this);
+        user = prefManager.getUser();
 
         ImageButton btnBack = (ImageButton) findViewById(R.id.back_button);
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -43,9 +50,11 @@ public class ProfileActivity extends AppCompatActivity {
         Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/yekan.ttf");
         EditText firstNameEditText = (EditText) findViewById(R.id.edittext_firstName);
         firstNameEditText.setTypeface(typeface);
+        firstNameEditText.setText(user.getFirstName());
 
         EditText lastNameEditText = (EditText) findViewById(R.id.edittext_lastName);
         lastNameEditText.setTypeface(typeface);
+        lastNameEditText.setText(user.getLastName());
 
         //استفاده از event های اصلی view ها
         firstNameEditText.addTextChangedListener(new TextWatcher() {
@@ -56,7 +65,24 @@ public class ProfileActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                user.setFirstName(s.toString());
+            }
 
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        lastNameEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                user.setLastName(s.toString());
             }
 
             @Override
@@ -69,27 +95,56 @@ public class ProfileActivity extends AppCompatActivity {
         CheckBox cssCheckBox = (CheckBox) findViewById(R.id.css_checkbox);
         CheckBox htmlCheckBox = (CheckBox) findViewById(R.id.html_checkbox);
 
+        javaCheckBox.setChecked(user.isJavaExpert());
+        cssCheckBox.setChecked(user.isCssExpert());
+        htmlCheckBox.setChecked(user.isHtmlExpert());
+
         javaCheckBox.setTypeface(typeface);
         cssCheckBox.setTypeface(typeface);
         htmlCheckBox.setTypeface(typeface);
 
-        javaCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        htmlCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Toast.makeText(ProfileActivity.this, String.valueOf(isChecked), Toast.LENGTH_SHORT).show();
+                user.setHtmlExpert(isChecked);
             }
         });
 
-        RadioButton maleradio = (RadioButton) findViewById(R.id.male_radio);
-        RadioButton femaleradio = (RadioButton) findViewById(R.id.female_radio);
-
-        maleradio.setTypeface(typeface);
-        femaleradio.setTypeface(typeface);
-
-        maleradio.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        cssCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Toast.makeText(ProfileActivity.this, String.valueOf(isChecked), Toast.LENGTH_SHORT).show();
+                user.setCssExpert(isChecked);
+            }
+        });
+
+        javaCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                user.setJavaExpert(isChecked);
+            }
+        });
+
+        RadioButton maleRadio = (RadioButton) findViewById(R.id.male_radio);
+        RadioButton femaleRadio = (RadioButton) findViewById(R.id.female_radio);
+
+        maleRadio.setTypeface(typeface);
+        femaleRadio.setTypeface(typeface);
+
+        byte gender=user.getGender();
+        if (gender==User.MALE){
+            maleRadio.setChecked(true);
+        }else {
+            femaleRadio.setChecked(true);
+        }
+
+        maleRadio.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    user.setGender(User.MALE);
+                }else {
+                    user.setGender(User.FEMALE);
+                }
             }
         });
 
@@ -97,8 +152,8 @@ public class ProfileActivity extends AppCompatActivity {
         saveForm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                prefManager.saveUser(user);
                 Toast.makeText(ProfileActivity.this, "save form is clicked", Toast.LENGTH_SHORT).show();
-
             }
         });
     }
