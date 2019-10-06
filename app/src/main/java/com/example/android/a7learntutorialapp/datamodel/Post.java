@@ -11,6 +11,7 @@ public class Post {
     private String title;
     private String content;
     private String date;
+    private int isVisited = 0;
 
     public int getId() {
         return id;
@@ -50,5 +51,13 @@ public class Post {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public int getIsVisited() {
+        return isVisited;
+    }
+
+    public void setIsVisited(int isVisited) {
+        this.isVisited = isVisited;
     }
 }

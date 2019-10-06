@@ -3,4 +3,7 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+
+    <color name="color_visited_post">#ddd</color>
+    <color name="color_not_visited_post">@android:color/white</color>
 </resources>

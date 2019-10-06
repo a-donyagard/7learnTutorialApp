@@ -8,7 +8,7 @@ import android.os.Bundle;
 import com.example.android.a7learntutorialapp.adapter.ClothesViewPagerAdapter;
 import com.example.android.a7learntutorialapp.R;
 
-public class boutiqueActivity extends AppCompatActivity {
+public class BoutiqueActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
