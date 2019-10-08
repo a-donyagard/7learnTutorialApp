@@ -23,7 +23,7 @@ public class SevenLearnDatabaseOpenHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "db_7learn";
     private static final int DATABASE_VERSION = 1;
 
-    private static final String POST_TABLE_NAME = "tbl_posts";
+    public static final String POST_TABLE_NAME = "tbl_posts";
 
 
     public static final String COL_ID = "col_id";
@@ -62,33 +62,9 @@ public class SevenLearnDatabaseOpenHelper extends SQLiteOpenHelper {
 
     }
 
-
-    public boolean addPost(Post post) {
-        ContentValues cv = new ContentValues();
-        cv.put(COL_ID, post.getId());
-        cv.put(COL_TITLE, post.getTitle());
-        cv.put(COL_CONTENT, post.getContent());
-        cv.put(COL_POST_IMAGE_URL, post.getPostImageUrl());
-        cv.put(COL_IS_VISITED, post.getIsVisited());
-        cv.put(COL_DATE, post.getDate());
-
-        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-        long isInserted = sqLiteDatabase.insert(POST_TABLE_NAME, null, cv);
-
-        Log.i(TAG, "addPost: " + isInserted);
-
-        if (isInserted > 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     public void addPosts(List<Post> posts) {
-        for (int i = 0; i < posts.size(); i++) {
-            if (!checkPostExists(posts.get(i).getId()))
-                addPost(posts.get(i));
-        }
+        AddPostsTask addPostsTask = new AddPostsTask(context, posts, this);
+        addPostsTask.execute();
     }
 
     public List<Post> getPosts() {
