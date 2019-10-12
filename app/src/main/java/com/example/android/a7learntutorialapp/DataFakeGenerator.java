@@ -3,8 +3,13 @@ package com.example.android.a7learntutorialapp;
 import android.content.Context;
 import android.support.v4.content.res.ResourcesCompat;
 
+import com.example.android.a7learntutorialapp.datamodel.AppFeature;
 import com.example.android.a7learntutorialapp.datamodel.Cloth;
 import com.example.android.a7learntutorialapp.datamodel.Post;
+import com.example.android.a7learntutorialapp.view.activity.BoutiqueActivity;
+import com.example.android.a7learntutorialapp.view.activity.MainActivity;
+import com.example.android.a7learntutorialapp.view.activity.PostsActivity;
+import com.example.android.a7learntutorialapp.view.activity.ProfileActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,5 +91,55 @@ public class DataFakeGenerator {
             clothes.add(cloth);
         }
         return clothes;
+    }
+
+
+    public static List<AppFeature> getAppFeatures(Context context) {
+        List<AppFeature> appFeatures = new ArrayList<>();
+
+        AppFeature appFeature = new AppFeature();
+        appFeature.setId(AppFeature.ID_POSTS_ACTIVITY);
+        appFeature.setTitle(context.getString(R.string.app_feature_latest_posts));
+        appFeature.setFeatureImage(R.drawable.posts);
+        appFeature.setDestinationActivity(PostsActivity.class);
+        appFeatures.add(appFeature);
+
+        appFeature = new AppFeature();
+        appFeature.setId(AppFeature.ID_USER_PROFILE);
+        appFeature.setTitle(context.getString(R.string.app_feature_user_profile));
+        appFeature.setFeatureImage(R.drawable.user_profile);
+        appFeature.setDestinationActivity(ProfileActivity.class);
+        appFeatures.add(appFeature);
+
+        appFeature = new AppFeature();
+        appFeature.setId(AppFeature.ID_FASHION);
+        appFeature.setTitle(context.getString(R.string.app_feature_fashion));
+        appFeature.setFeatureImage(R.drawable.fashion);
+        appFeature.setDestinationActivity(BoutiqueActivity.class);
+        appFeatures.add(appFeature);
+
+        appFeature = new AppFeature();
+        appFeature.setId(AppFeature.ID_MUSIC);
+        appFeature.setTitle(context.getString(R.string.app_feature_music_player));
+        appFeature.setFeatureImage(R.drawable.music_player);
+        appFeature.setDestinationActivity(MainActivity.class);
+        appFeatures.add(appFeature);
+
+        appFeature = new AppFeature();
+        appFeature.setId(AppFeature.ID_VIDEO);
+        appFeature.setTitle(context.getString(R.string.app_feature_video_player));
+        appFeature.setFeatureImage(R.drawable.video_player);
+        appFeature.setDestinationActivity(MainActivity.class);
+        appFeatures.add(appFeature);
+
+        appFeature = new AppFeature();
+        appFeature.setId(AppFeature.ID_LOGIN);
+        appFeature.setTitle(context.getString(R.string.app_feature_login));
+        appFeature.setFeatureImage(R.drawable.login);
+        appFeature.setDestinationActivity(MainActivity.class);
+        appFeatures.add(appFeature);
+
+
+        return appFeatures;
     }
 }

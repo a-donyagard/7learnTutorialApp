@@ -4,6 +4,8 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import com.example.android.a7learntutorialapp.adapter.ClothesViewPagerAdapter;
 import com.example.android.a7learntutorialapp.R;
@@ -20,5 +22,19 @@ public class BoutiqueActivity extends AppCompatActivity {
         ClothesViewPagerAdapter adapter = new ClothesViewPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
+
+        Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        //افزودن دکمه back به بالای صفحه
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 }

@@ -27,6 +27,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.NewsViewHold
 
     private Context context;
     private List<Post> posts;
+    Typeface yekanTypeface;
 
     public PostsAdapter(Context context, List<Post> posts) {
         this.context = context;
@@ -36,7 +37,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.NewsViewHold
     @Override
     public NewsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.layout_posts, parent, false);
-        Typeface yekanTypeface = Typeface.createFromAsset(context.getAssets(), "fonts/yekan.ttf");
+//        Typeface yekanTypeface = Typeface.createFromAsset(context.getAssets(), "fonts/yekan.ttf");
         return new NewsViewHolder(view, yekanTypeface);
     }
 
@@ -85,13 +86,13 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.NewsViewHold
             super(itemView);
             newsImage = (ImageView) itemView.findViewById(R.id.item_image);
             title = (TextView) itemView.findViewById(R.id.posts_title);
-            title.setTypeface(yekanTypeface);
+//            title.setTypeface(yekanTypeface);
 
             content = (TextView) itemView.findViewById(R.id.posts_content);
-            content.setTypeface(yekanTypeface);
+//            content.setTypeface(yekanTypeface);
 
             date = (TextView) itemView.findViewById(R.id.posts_date);
-            date.setTypeface(yekanTypeface);
+//            date.setTypeface(yekanTypeface);
         }
     }
 }

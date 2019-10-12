@@ -3,6 +3,7 @@ package com.example.android.a7learntutorialapp.view.activity;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.a7learntutorialapp.R;
@@ -21,6 +23,7 @@ import com.example.android.a7learntutorialapp.datamodel.User;
 public class ProfileActivity extends AppCompatActivity {
     private User user = new User();
     private UserSharedPrefManager prefManager;
+    Typeface typeface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,14 +32,6 @@ public class ProfileActivity extends AppCompatActivity {
 
         prefManager = new UserSharedPrefManager(this);
         user = prefManager.getUser();
-
-        ImageButton btnBack = (ImageButton) findViewById(R.id.back_button);
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
 
         Button editAvatar = (Button) findViewById(R.id.edit_avatar);
         editAvatar.setOnClickListener(new View.OnClickListener() {
@@ -47,13 +42,13 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
         //اعمال فونت
-        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/yekan.ttf");
+        typeface = Typeface.createFromAsset(getAssets(), "fonts/yekan.ttf");
         EditText firstNameEditText = (EditText) findViewById(R.id.edittext_firstName);
-        firstNameEditText.setTypeface(typeface);
+//        firstNameEditText.setTypeface(typeface);
         firstNameEditText.setText(user.getFirstName());
 
         EditText lastNameEditText = (EditText) findViewById(R.id.edittext_lastName);
-        lastNameEditText.setTypeface(typeface);
+//        lastNameEditText.setTypeface(typeface);
         lastNameEditText.setText(user.getLastName());
 
         //استفاده از event های اصلی view ها
@@ -99,9 +94,9 @@ public class ProfileActivity extends AppCompatActivity {
         cssCheckBox.setChecked(user.isCssExpert());
         htmlCheckBox.setChecked(user.isHtmlExpert());
 
-        javaCheckBox.setTypeface(typeface);
-        cssCheckBox.setTypeface(typeface);
-        htmlCheckBox.setTypeface(typeface);
+//        javaCheckBox.setTypeface(typeface);
+//        cssCheckBox.setTypeface(typeface);
+//        htmlCheckBox.setTypeface(typeface);
 
         htmlCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -127,8 +122,8 @@ public class ProfileActivity extends AppCompatActivity {
         RadioButton maleRadio = (RadioButton) findViewById(R.id.male_radio);
         RadioButton femaleRadio = (RadioButton) findViewById(R.id.female_radio);
 
-        maleRadio.setTypeface(typeface);
-        femaleRadio.setTypeface(typeface);
+//        maleRadio.setTypeface(typeface);
+//        femaleRadio.setTypeface(typeface);
 
         byte gender=user.getGender();
         if (gender==User.MALE){
@@ -156,5 +151,26 @@ public class ProfileActivity extends AppCompatActivity {
                 Toast.makeText(ProfileActivity.this, "save form is clicked", Toast.LENGTH_SHORT).show();
             }
         });
+
+        setupToolbar();
+    }
+
+    private void setupToolbar(){
+        Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+//        for (int i = 0; i < toolbar.getChildCount(); i++) {
+//            if (toolbar.getChildAt(i) instanceof TextView){
+//                ((TextView) toolbar.getChildAt(i)).setTypeface(typeface);
+//            }
+//        }
     }
 }

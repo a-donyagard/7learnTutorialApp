@@ -19,7 +19,7 @@ public class PostActivity extends AppCompatActivity {
         setContentView(R.layout.activity_post);
 
 
-        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/yekan.ttf");
+//        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/yekan.ttf");
         Intent intent = getIntent();
 
         int id = intent.getIntExtra(SevenLearnDatabaseOpenHelper.COL_ID, 0);
@@ -41,9 +41,9 @@ public class PostActivity extends AppCompatActivity {
         contentTextView.setText(content);
         dateTextView.setText(date);
 
-        titleTextView.setTypeface(typeface);
-        contentTextView.setTypeface(typeface);
-        dateTextView.setTypeface(typeface);
+//        titleTextView.setTypeface(typeface);
+//        contentTextView.setTypeface(typeface);
+//        dateTextView.setTypeface(typeface);
     }
 
     private void setPostVisited(int postId) {
