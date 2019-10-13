@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layoutDirection="rtl"
+    tools:context=".animations.AnimationsMainActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/animation_in_android_banner" />
+
+            <Button
+                android:id="@+id/button_alpha_animation"
+                style="@style/animations_button_primary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:tag="0"
+                android:text="@string/animations_alpha" />
+
+            <Button
+                android:id="@+id/button_translate_animation"
+                style="@style/animations_button_accent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:tag="1"
+                android:text="@string/animations_translate" />
+
+            <Button
+                android:id="@+id/button_scale_animation"
+                style="@style/animations_button_primary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:tag="2"
+                android:text="@string/animations_scale" />
+
+            <Button
+                android:id="@+id/button_rotate_animation"
+                style="@style/animations_button_accent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:tag="3"
+                android:text="@string/animations_rotate" />
+
+            <Button
+                android:id="@+id/button_value_animator"
+                style="@style/animations_button_primary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:tag="4"
+                android:text="@string/animations_value_animator" />
+
+            <Button
+                android:id="@+id/button_animation_set"
+                style="@style/animations_button_accent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:tag="5"
+                android:text="@string/animations_animation_set" />
+
+            <Button
+                android:id="@+id/button_yoyo"
+                style="@style/animations_button_primary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:tag="6"
+                android:text="@string/animations_yoyo" />
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</android.support.design.widget.CoordinatorLayout>

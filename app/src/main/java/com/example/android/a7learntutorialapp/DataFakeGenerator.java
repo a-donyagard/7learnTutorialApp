@@ -3,6 +3,7 @@ package com.example.android.a7learntutorialapp;
 import android.content.Context;
 import android.support.v4.content.res.ResourcesCompat;
 
+import com.example.android.a7learntutorialapp.animations.AnimationsMainActivity;
 import com.example.android.a7learntutorialapp.datamodel.AppFeature;
 import com.example.android.a7learntutorialapp.datamodel.Cloth;
 import com.example.android.a7learntutorialapp.datamodel.Post;
@@ -137,6 +138,13 @@ public class DataFakeGenerator {
         appFeature.setTitle(context.getString(R.string.app_feature_login));
         appFeature.setFeatureImage(R.drawable.login);
         appFeature.setDestinationActivity(MainActivity.class);
+        appFeatures.add(appFeature);
+
+        appFeature=new AppFeature();
+        appFeature.setId(AppFeature.ID_ANIMATIONS);
+        appFeature.setTitle(context.getString(R.string.app_feature_animations_in_android));
+        appFeature.setFeatureImage(R.drawable.animations_in_android);
+        appFeature.setDestinationActivity(AnimationsMainActivity.class);
         appFeatures.add(appFeature);
 
 

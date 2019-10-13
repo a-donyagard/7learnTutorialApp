@@ -101,11 +101,11 @@ public class AppFeaturesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     public static class AppFeatureBanner extends RecyclerView.ViewHolder {
-        private TextView appFeaturesLabel;
+//        private TextView appFeaturesLabel;
 
         public AppFeatureBanner(View itemView, Typeface typeface) {
             super(itemView);
-            appFeaturesLabel = (TextView) itemView.findViewById(R.id.label_app_features_list);
+//            appFeaturesLabel = (TextView) itemView.findViewById(R.id.label_app_features_list);
 //            appFeaturesLabel.setTypeface(typeface);
         }
     }

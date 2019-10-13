@@ -3,6 +3,7 @@
     <color name="colorPrimary">#5fd080</color>
     <color name="colorPrimaryDark">#43965b</color>
     <color name="colorAccent">#607d8b</color>
+    <color name="colorAccentDark">#3f515a</color>
 
     <color name="color_visited_post">#ddd</color>
     <color name="color_not_visited_post">@android:color/white</color>
