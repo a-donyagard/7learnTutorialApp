@@ -16,4 +16,6 @@
     <dimen name="standard_views_radius">5dp</dimen>
 
     <dimen name="action_button_size">32dp</dimen>
+
+    <dimen name="music_player_seek_bar_margin">16dp</dimen>
 </resources>

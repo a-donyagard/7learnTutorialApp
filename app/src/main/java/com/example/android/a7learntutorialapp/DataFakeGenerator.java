@@ -9,6 +9,7 @@ import com.example.android.a7learntutorialapp.datamodel.Cloth;
 import com.example.android.a7learntutorialapp.datamodel.Post;
 import com.example.android.a7learntutorialapp.view.activity.BoutiqueActivity;
 import com.example.android.a7learntutorialapp.view.activity.MainActivity;
+import com.example.android.a7learntutorialapp.view.activity.MusicPlayerActivity;
 import com.example.android.a7learntutorialapp.view.activity.PostsActivity;
 import com.example.android.a7learntutorialapp.view.activity.ProfileActivity;
 
@@ -123,7 +124,7 @@ public class DataFakeGenerator {
         appFeature.setId(AppFeature.ID_MUSIC);
         appFeature.setTitle(context.getString(R.string.app_feature_music_player));
         appFeature.setFeatureImage(R.drawable.music_player);
-        appFeature.setDestinationActivity(MainActivity.class);
+        appFeature.setDestinationActivity(MusicPlayerActivity.class);
         appFeatures.add(appFeature);
 
         appFeature = new AppFeature();
