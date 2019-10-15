@@ -5,7 +5,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -15,34 +14,29 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-
-        <activity android:name=".view.activity.MainActivity">
+        <activity android:name=".view.activity.SignUpActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".view.activity.BoutiqueActivity"
-            android:label="بوتیک">
+        <activity android:name=".view.activity.MainActivity">
 
         </activity>
+        <activity
+            android:name=".view.activity.BoutiqueActivity"
+            android:label="بوتیک"></activity>
         <activity
             android:name=".view.activity.ProfileActivity"
             android:label="اطلاعات کاربری"
-            android:windowSoftInputMode="stateHidden">
-
-        </activity>
-        <activity android:name=".view.activity.PostsActivity">
-
-        </activity>
-        <activity android:name=".view.activity.WeatherSampleActivity">
-
-        </activity>
-        <activity android:name=".view.activity.PostActivity"></activity>
-        <activity android:name=".animations.AnimationsMainActivity"
-            android:label="@string/animations_main_activity_toolbar_title"/>
+            android:windowSoftInputMode="stateHidden"></activity>
+        <activity android:name=".view.activity.PostsActivity"></activity>
+        <activity android:name=".view.activity.WeatherSampleActivity"></activity>
+        <activity android:name=".view.activity.PostActivity" />
+        <activity
+            android:name=".animations.AnimationsMainActivity"
+            android:label="@string/animations_main_activity_toolbar_title" />
         <activity android:name=".animations.AnimationActivity" />
     </application>
 

@@ -87,7 +87,7 @@ public class ApiService {
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, "http://192.168.1.106/7learn/getposts.php", null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-                Log.i(TAG, "onResponse: "+response.toString());
+                Log.i(TAG, "onResponse: " + response.toString());
 
                 List<Post> posts = new ArrayList<>();
                 for (int i = 0; i < response.length(); i++) {
@@ -120,11 +120,41 @@ public class ApiService {
     }
 
 
+    public void signUpUser(JSONObject requestJsonObject, final OnSignupComplete onSignupComplete) {
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST,
+                "http://192.168.1.106/7learn/SaveUser.php",
+                requestJsonObject,
+                new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+                try {
+                    boolean success = response.getBoolean("success");
+                    onSignupComplete.onSignUp(success);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                onSignupComplete.onSignUp(false);
+            }
+        });
+
+        request.setRetryPolicy(new DefaultRetryPolicy(18000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        Volley.newRequestQueue(context).add(request);
+    }
+
     public interface OnWeatherInfoRecieved {
         void onRecieved(WeatherInfo weatherInfo);
     }
 
     public interface OnPostsReceived {
         void onReceived(List<Post> posts);
+    }
+
+    public interface OnSignupComplete {
+        void onSignUp(boolean success);
     }
 }

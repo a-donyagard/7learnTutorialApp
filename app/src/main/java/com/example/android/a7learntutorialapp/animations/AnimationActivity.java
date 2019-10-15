@@ -37,8 +37,8 @@ public class AnimationActivity extends AppCompatActivity {
     public static final int TYPE_SCALE = 2;
     public static final int TYPE_ROTATE = 3;
     public static final int TYPE_VALUE_ANIMATOR = 4;
-    public static final int TYPE_ANIMATION_SET=5;
-    public static final int TYPE_YOYO=6;
+    public static final int TYPE_ANIMATION_SET = 5;
+    public static final int TYPE_YOYO = 6;
 
     private ImageView kouroshImage;
     private SwitchCompat loadFromXmlSwitch;
@@ -163,11 +163,12 @@ public class AnimationActivity extends AppCompatActivity {
         }
     }
 
-    private void showValueAnimation(){
-        final FrameLayout frameLayout=(FrameLayout)findViewById(R.id.frame_root);
+    private void showValueAnimation() {
+        final FrameLayout frameLayout = (FrameLayout) findViewById(R.id.frame_root);
 
-        ValueAnimator valueAnimator=ValueAnimator.ofObject(new ArgbEvaluator(),ContextCompat.getColor(this,
-                R.color.colorPrimary), ContextCompat.getColor(this,R.color.colorPrimaryDark));
+        ValueAnimator valueAnimator = ValueAnimator.ofObject(new ArgbEvaluator(),
+                ContextCompat.getColor(this, R.color.colorPrimary),
+                ContextCompat.getColor(this, R.color.colorPrimaryDark));
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator valueAnimator) {
@@ -182,22 +183,22 @@ public class AnimationActivity extends AppCompatActivity {
         valueAnimator.start();
     }
 
-    private void showAnimationSet(){
+    private void showAnimationSet() {
 
-        if (mustLoadFromXml){
-            AnimationSet animationSet= (AnimationSet) AnimationUtils.loadAnimation(this,R.anim.sample_animation_set);
+        if (mustLoadFromXml) {
+            AnimationSet animationSet = (AnimationSet) AnimationUtils.loadAnimation(this, R.anim.sample_animation_set);
             animationSet.setDuration(1000);
             animationSet.setFillAfter(true);
             animationSet.setRepeatCount(Animation.INFINITE);
             animationSet.setRepeatMode(Animation.REVERSE);
             kouroshImage.startAnimation(animationSet);
-        }else {
-            AnimationSet animationSet=new AnimationSet(true);
-            ScaleAnimation scaleAnimation=new ScaleAnimation(1.0f,2.0f,1.0f,2.0f,Animation.RELATIVE_TO_SELF,0.5f,
-                    Animation.RELATIVE_TO_SELF,0.5f);
+        } else {
+            AnimationSet animationSet = new AnimationSet(true);
+            ScaleAnimation scaleAnimation = new ScaleAnimation(1.0f, 2.0f, 1.0f, 2.0f, Animation.RELATIVE_TO_SELF, 0.5f,
+                    Animation.RELATIVE_TO_SELF, 0.5f);
 
-            TranslateAnimation translateAnimation=new TranslateAnimation(Animation.ABSOLUTE,0,Animation.ABSOLUTE,0,
-                    Animation.ABSOLUTE,0,Animation.RELATIVE_TO_SELF,1);
+            TranslateAnimation translateAnimation = new TranslateAnimation(Animation.ABSOLUTE, 0, Animation.ABSOLUTE, 0,
+                    Animation.ABSOLUTE, 0, Animation.RELATIVE_TO_SELF, 1);
 
             animationSet.addAnimation(scaleAnimation);
             animationSet.addAnimation(translateAnimation);
@@ -211,7 +212,7 @@ public class AnimationActivity extends AppCompatActivity {
         }
     }
 
-    private void showYoyoAnimation(){
+    private void showYoyoAnimation() {
         YoYo.with(Techniques.Shake)
                 .duration(1000)
                 .playOn(kouroshImage);
