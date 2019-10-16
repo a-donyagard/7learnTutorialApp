@@ -12,6 +12,7 @@ import com.example.android.a7learntutorialapp.view.activity.MainActivity;
 import com.example.android.a7learntutorialapp.view.activity.MusicPlayerActivity;
 import com.example.android.a7learntutorialapp.view.activity.PostsActivity;
 import com.example.android.a7learntutorialapp.view.activity.ProfileActivity;
+import com.example.android.a7learntutorialapp.view.activity.VideoPlayerActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -131,7 +132,7 @@ public class DataFakeGenerator {
         appFeature.setId(AppFeature.ID_VIDEO);
         appFeature.setTitle(context.getString(R.string.app_feature_video_player));
         appFeature.setFeatureImage(R.drawable.video_player);
-        appFeature.setDestinationActivity(MainActivity.class);
+        appFeature.setDestinationActivity(VideoPlayerActivity.class);
         appFeatures.add(appFeature);
 
         appFeature = new AppFeature();
