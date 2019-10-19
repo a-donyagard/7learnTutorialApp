@@ -2,20 +2,23 @@ package com.example.android.a7learntutorialapp;
 
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.widget.RemoteViews;
 
 import com.example.android.a7learntutorialapp.datamodel.WeatherInfo;
+import com.example.android.a7learntutorialapp.service.WeatherInfoDownloaderService;
 
 /**
  * Implementation of App Widget functionality.
  */
 public class WeatherWidget extends AppWidgetProvider {
     public String cityName = "Shahin Dezh";
+    public static final String INTENT_ACTION_UPDATE_DATA = "com.example.android.a7learntutorialapp.UPDATE_DATA";
 
     public static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                        int appWidgetId, WeatherInfo weatherInfo, String cityName) {
-        CharSequence widgetText = context.getString(R.string.appwidget_text);
         // Construct the RemoteViews object
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.weather_widget);
         remoteViews.setTextViewText(R.id.text_weather_temp, String.valueOf((int) (weatherInfo.getWeatherTemprature() - 273.15)) + "\u00b0");
@@ -53,17 +56,22 @@ public class WeatherWidget extends AppWidgetProvider {
     @Override
     public void onUpdate(final Context context, final AppWidgetManager appWidgetManager, final int[] appWidgetIds) {
         // There may be multiple widgets active, so update all of them
-        ApiService apiService = new ApiService(context);
-        apiService.getCurrentWeather(new ApiService.OnWeatherInfoReceived() {
-            @Override
-            public void onReceived(WeatherInfo weatherInfo) {
-                if (weatherInfo != null) {
-                    for (int appWidgetId : appWidgetIds) {
-                        updateAppWidget(context, appWidgetManager, appWidgetId, weatherInfo, cityName);
-                    }
-                }
+        context.startService(new Intent(context, WeatherInfoDownloaderService.class));
+    }
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        super.onReceive(context, intent);
+
+        if (intent.getAction().equals(INTENT_ACTION_UPDATE_DATA)) {
+            WeatherInfo weatherInfo = intent.getParcelableExtra("data");
+            AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+            int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(context, WeatherWidget.class));
+
+            for (int i = 0; i < appWidgetIds.length; i++) {
+                updateAppWidget(context, appWidgetManager, appWidgetIds[i], weatherInfo, cityName);
             }
-        },cityName);
+        }
     }
 
     @Override

@@ -1,9 +1,12 @@
 package com.example.android.a7learntutorialapp.datamodel;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Saeed shahini on 8/11/2016.
  */
-public class WeatherInfo {
+public class WeatherInfo implements Parcelable {
     private int weatherId;
     private String weatherName;
     private String weatherDescription;
@@ -94,4 +97,53 @@ public class WeatherInfo {
     public void setWeatherId(int weatherId) {
         this.weatherId = weatherId;
     }
+
+    public WeatherInfo() {
+
+    }
+
+    protected WeatherInfo(Parcel in) {
+        weatherId = in.readInt();
+        weatherName = in.readString();
+        weatherDescription = in.readString();
+        windSpeed = in.readFloat();
+        windDegree = in.readFloat();
+        humidity = in.readInt();
+        weatherTemprature = in.readFloat();
+        minTemprature = in.readFloat();
+        maxTemprature = in.readFloat();
+        pressure = in.readInt();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(weatherId);
+        dest.writeString(weatherName);
+        dest.writeString(weatherDescription);
+        dest.writeFloat(windSpeed);
+        dest.writeFloat(windDegree);
+        dest.writeInt(humidity);
+        dest.writeFloat(weatherTemprature);
+        dest.writeFloat(minTemprature);
+        dest.writeFloat(maxTemprature);
+        dest.writeInt(pressure);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<WeatherInfo> CREATOR = new Parcelable.Creator<WeatherInfo>() {
+        @Override
+        public WeatherInfo createFromParcel(Parcel in) {
+            return new WeatherInfo(in);
+        }
+
+        @Override
+        public WeatherInfo[] newArray(int size) {
+            return new WeatherInfo[size];
+        }
+    };
 }
