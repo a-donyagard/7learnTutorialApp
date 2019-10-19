@@ -4,6 +4,7 @@ package com.example.android.a7learntutorialapp.datamodel;
  * Created by Saeed shahini on 8/11/2016.
  */
 public class WeatherInfo {
+    private int weatherId;
     private String weatherName;
     private String weatherDescription;
     private float windSpeed;
@@ -84,5 +85,13 @@ public class WeatherInfo {
 
     public void setPressure(int pressure) {
         this.pressure = pressure;
+    }
+
+    public int getWeatherId() {
+        return weatherId;
+    }
+
+    public void setWeatherId(int weatherId) {
+        this.weatherId = weatherId;
     }
 }

@@ -21,4 +21,6 @@
 
     <string name="animations_label_list_of_animations">لیست انیمیشن ها در اندروید:</string>
     <string name="animations_main_activity_toolbar_title">انیمیشن در اندروید</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 </resources>

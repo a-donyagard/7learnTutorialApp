@@ -13,7 +13,7 @@ import com.example.android.a7learntutorialapp.R;
 import com.example.android.a7learntutorialapp.datamodel.WeatherInfo;
 
 
-public class WeatherSampleActivity extends AppCompatActivity implements ApiService.OnWeatherInfoRecieved {
+public class WeatherSampleActivity extends AppCompatActivity implements ApiService.OnWeatherInfoReceived {
     private ApiService apiService;
     private ProgressBar progressBar;
     private TextView txtWeatherName;
@@ -31,11 +31,11 @@ public class WeatherSampleActivity extends AppCompatActivity implements ApiServi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather_sample);
 
-        apiService=new ApiService(this);
+        apiService = new ApiService(this);
 
         initViews();
 
-        Button btnSendRequest=(Button)findViewById(R.id.btn_send_request);
+        Button btnSendRequest = (Button) findViewById(R.id.btn_send_request);
         btnSendRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,36 +45,36 @@ public class WeatherSampleActivity extends AppCompatActivity implements ApiServi
         });
     }
 
-    private void initViews(){
-        progressBar=(ProgressBar)findViewById(R.id.progress_bar);
+    private void initViews() {
+        progressBar = (ProgressBar) findViewById(R.id.progress_bar);
 
-        txtWeatherName=(TextView)findViewById(R.id.txt_weather_name);
-        txtWeatherDescription=(TextView)findViewById(R.id.txt_weather_description);
-        txtTemp=(TextView)findViewById(R.id.txt_temprature);
-        txtHumidity=(TextView)findViewById(R.id.txt_humidity);
-        txtPressure=(TextView)findViewById(R.id.txt_pressure);
-        txtMinTemp=(TextView)findViewById(R.id.txt_min_temp);
-        txtMaxTemp=(TextView)findViewById(R.id.txt_max_temp);
-        txtWindSpeed=(TextView)findViewById(R.id.txt_wind_speed);
-        txtWindDegree=(TextView)findViewById(R.id.txt_wind_degree);
+        txtWeatherName = (TextView) findViewById(R.id.txt_weather_name);
+        txtWeatherDescription = (TextView) findViewById(R.id.txt_weather_description);
+        txtTemp = (TextView) findViewById(R.id.txt_temprature);
+        txtHumidity = (TextView) findViewById(R.id.txt_humidity);
+        txtPressure = (TextView) findViewById(R.id.txt_pressure);
+        txtMinTemp = (TextView) findViewById(R.id.txt_min_temp);
+        txtMaxTemp = (TextView) findViewById(R.id.txt_max_temp);
+        txtWindSpeed = (TextView) findViewById(R.id.txt_wind_speed);
+        txtWindDegree = (TextView) findViewById(R.id.txt_wind_degree);
     }
 
 
     @Override
-    public void onRecieved(WeatherInfo weatherInfo) {
-        if (weatherInfo!=null){
+    public void onReceived(WeatherInfo weatherInfo) {
+        if (weatherInfo != null) {
             //show information to user
-            txtWeatherName.setText("آب و هوای فعلی: "+weatherInfo.getWeatherName());
-            txtWeatherDescription.setText("توضیحات: "+weatherInfo.getWeatherDescription());
-            txtTemp.setText("دمای فعلی: "+String.valueOf(weatherInfo.getWeatherTemprature()));
-            txtHumidity.setText("رطوبت هوا: "+String.valueOf(weatherInfo.getHumidity()));
-            txtPressure.setText("میزان فشار هوا: "+String.valueOf(weatherInfo.getPressure()));
-            txtMinTemp.setText("کم ترین دما: "+String.valueOf(weatherInfo.getMinTemprature()));
-            txtMaxTemp.setText("بیشترین دما: "+String.valueOf(weatherInfo.getMaxTemprature()));
-            txtWindSpeed.setText("سرعت باد: "+String.valueOf(weatherInfo.getWindSpeed()));
-            txtWindDegree.setText("درجه ی باد: "+String.valueOf(weatherInfo.getWindDegree()));
-        }else {
-            Toast.makeText(this,"خطا در دریافت اطلاعات", Toast.LENGTH_LONG).show();
+            txtWeatherName.setText("آب و هوای فعلی: " + weatherInfo.getWeatherName());
+            txtWeatherDescription.setText("توضیحات: " + weatherInfo.getWeatherDescription());
+            txtTemp.setText("دمای فعلی: " + String.valueOf(weatherInfo.getWeatherTemprature()));
+            txtHumidity.setText("رطوبت هوا: " + String.valueOf(weatherInfo.getHumidity()));
+            txtPressure.setText("میزان فشار هوا: " + String.valueOf(weatherInfo.getPressure()));
+            txtMinTemp.setText("کم ترین دما: " + String.valueOf(weatherInfo.getMinTemprature()));
+            txtMaxTemp.setText("بیشترین دما: " + String.valueOf(weatherInfo.getMaxTemprature()));
+            txtWindSpeed.setText("سرعت باد: " + String.valueOf(weatherInfo.getWindSpeed()));
+            txtWindDegree.setText("درجه ی باد: " + String.valueOf(weatherInfo.getWindDegree()));
+        } else {
+            Toast.makeText(this, "خطا در دریافت اطلاعات", Toast.LENGTH_LONG).show();
         }
         progressBar.setVisibility(View.INVISIBLE);
     }

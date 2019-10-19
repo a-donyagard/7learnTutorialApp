@@ -1,6 +1,11 @@
 package com.example.android.a7learntutorialapp.view.activity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -27,6 +32,9 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
     private AppFeaturesAdapter appFeaturesAdapter;
+    private Snackbar connectivityMessageSnackBar;
+    private CoordinatorLayout coordinatorLayout;
+    private ConnectivityListener connectivityListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,21 +43,36 @@ public class MainActivity extends AppCompatActivity {
         setupViews();
     }
 
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        connectivityListener = new ConnectivityListener();
+        registerReceiver(connectivityListener, new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE"));
+    }
+
+    @Override
+    protected void onStop() {
+        unregisterReceiver(connectivityListener);
+        super.onStop();
+    }
+
+
     private void setupViews() {
         setupRecyclerView();
         setupToolbar();
         setupNavigationView();
 
-        final CoordinatorLayout coordinatorLayout=(CoordinatorLayout)findViewById(R.id.coordinator_layout);
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator_layout);
         FloatingActionButton button = (FloatingActionButton) findViewById(R.id.float_action_button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(coordinatorLayout,"Float Action Button Clicked!!!",Snackbar.LENGTH_LONG)
+                Snackbar.make(coordinatorLayout, "Float Action Button Clicked!!!", Snackbar.LENGTH_LONG)
                         .setAction("retry", new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                Toast.makeText(MainActivity.this,"Retry Button Clicked!!!",Toast.LENGTH_LONG).show();
+                                Toast.makeText(MainActivity.this, "Retry Button Clicked!!!", Toast.LENGTH_LONG).show();
                             }
                         }).show();
             }
@@ -106,5 +129,23 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+    }
+
+    private class ConnectivityListener extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+            NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+            boolean isConnected = networkInfo != null && networkInfo.isConnected();
+
+            if (isConnected) {
+                if (connectivityMessageSnackBar != null) {
+                    connectivityMessageSnackBar.dismiss();
+                }
+            } else {
+                connectivityMessageSnackBar = Snackbar.make(coordinatorLayout, "دسترسی به اینترنت ندارید، اینترنت خود را بررسی کنید.", Snackbar.LENGTH_INDEFINITE);
+                connectivityMessageSnackBar.show();
+            }
+        }
     }
 }

@@ -33,21 +33,21 @@ public class ApiService {
         this.context = context;
     }
 
-    public void getCurrentWeather(final OnWeatherInfoRecieved onWeatherInfoRecieved, String cityName) {
+    public void getCurrentWeather(final OnWeatherInfoReceived onWeatherInfoReceived, String cityName) {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
-                "https://api.openweathermap.org/data/2.5/weather?q=London&apikey=0067ea3ffc9cad0548529afa3639f76f",
+                "https://api.openweathermap.org/data/2.5/weather?q="+cityName+"&apikey=0067ea3ffc9cad0548529afa3639f76f",
                 null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Log.i(TAG, "onResponse: " + response.toString());
-                onWeatherInfoRecieved.onRecieved(parseResponseToWeatherInfo(response));
+                onWeatherInfoReceived.onReceived(parseResponseToWeatherInfo(response));
 
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e(TAG, "onErrorResponse: " + error.toString());
-                onWeatherInfoRecieved.onRecieved(null);
+                onWeatherInfoReceived.onReceived(null);
             }
         });
 
@@ -62,8 +62,10 @@ public class ApiService {
         try {
             JSONArray weatherJsonArray = response.getJSONArray("weather");
             JSONObject weatherJsonObject = weatherJsonArray.getJSONObject(0);
+            weatherInfo.setWeatherId(weatherJsonObject.getInt("id"));
             weatherInfo.setWeatherName(weatherJsonObject.getString("main"));
             weatherInfo.setWeatherDescription(weatherJsonObject.getString("description"));
+
             JSONObject mainJsonObject = response.getJSONObject("main");
             weatherInfo.setWeatherTemprature((float) mainJsonObject.getDouble("temp"));
             weatherInfo.setHumidity(mainJsonObject.getInt("humidity"));
@@ -146,8 +148,8 @@ public class ApiService {
         Volley.newRequestQueue(context).add(request);
     }
 
-    public interface OnWeatherInfoRecieved {
-        void onRecieved(WeatherInfo weatherInfo);
+    public interface OnWeatherInfoReceived {
+        void onReceived(WeatherInfo weatherInfo);
     }
 
     public interface OnPostsReceived {
