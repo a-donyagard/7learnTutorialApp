@@ -2,6 +2,7 @@ package com.example.android.a7learntutorialapp.service;
 
 import android.app.Service;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
@@ -14,6 +15,7 @@ import com.example.android.a7learntutorialapp.datamodel.WeatherInfo;
  */
 public class WeatherInfoDownloaderService extends Service {
     private String cityName = "Shahin Dezh";
+    private WeatherWidget weatherWidget = new WeatherWidget();
 
     @Nullable
     @Override
@@ -28,6 +30,10 @@ public class WeatherInfoDownloaderService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(WeatherWidget.INTENT_ACTION_UPDATE_DATA);
+        this.registerReceiver(weatherWidget,filter);
+
         ApiService apiService = new ApiService(this);
         apiService.getCurrentWeather(new ApiService.OnWeatherInfoReceived() {
             @Override
@@ -45,6 +51,7 @@ public class WeatherInfoDownloaderService extends Service {
 
     @Override
     public void onDestroy() {
+        this.unregisterReceiver(weatherWidget);
         super.onDestroy();
     }
 }

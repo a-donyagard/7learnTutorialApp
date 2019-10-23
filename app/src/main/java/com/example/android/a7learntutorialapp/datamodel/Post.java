@@ -12,6 +12,7 @@ public class Post {
     private String content;
     private String date;
     private int isVisited = 0;
+    private int postImage;
 
     public int getId() {
         return id;
@@ -59,5 +60,13 @@ public class Post {
 
     public void setIsVisited(int isVisited) {
         this.isVisited = isVisited;
+    }
+
+    public int getPostImage() {
+        return postImage;
+    }
+
+    public void setPostImage(int postImage) {
+        this.postImage = postImage;
     }
 }

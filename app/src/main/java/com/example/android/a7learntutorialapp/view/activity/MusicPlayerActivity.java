@@ -1,8 +1,12 @@
 package com.example.android.a7learntutorialapp.view.activity;
 
+import android.content.ComponentName;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Environment;
+import android.os.IBinder;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.a7learntutorialapp.R;
+import com.example.android.a7learntutorialapp.service.MusicPlayerService;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,7 +26,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 
-public class MusicPlayerActivity extends AppCompatActivity {
+public class MusicPlayerActivity extends AppCompatActivity implements ServiceConnection {
 
     private MediaPlayer mediaPlayer;
     private TextView currentDurationTextView;
@@ -34,48 +39,31 @@ public class MusicPlayerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_music_player);
 
-        setupMediaPlayer();
+        bindService(new Intent(this, MusicPlayerService.class), this, BIND_AUTO_CREATE);
     }
 
-    private void setupMediaPlayer() {
-        File musicDirectory = getExternalFilesDir(Environment.DIRECTORY_MUSIC);
-        File music = new File(musicDirectory, "Ebru-yasar-seni-anan-benim-icin-dogurmus.mp3");
-        if (music.exists()) {
-            mediaPlayer = new MediaPlayer();
-            try {
-                mediaPlayer.setDataSource(this, Uri.fromFile(music));
-                mediaPlayer.prepareAsync();
-                mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                    @Override
-                    public void onPrepared(MediaPlayer mediaPlayer) {
-                        setupViews();
-                    }
-                });
 
-                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mediaPlayer) {
-                        playButton.setImageDrawable(ResourcesCompat.getDrawable(getResources(),
-                                R.drawable.ic_play, null));
-                        mediaPlayer.seekTo(0);
-                    }
-                });
+    @Override
+    public void onServiceConnected(ComponentName name, IBinder service) {
+        MusicPlayerService.MusicPlayerBinder musicPlayerBinder = (MusicPlayerService.MusicPlayerBinder) service;
+        MusicPlayerService musicPlayerService = musicPlayerBinder.getService();
+        mediaPlayer = musicPlayerService.getMediaPlayer();
+        setupViews();
+    }
 
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else {
-            Toast.makeText(this, "Music not found", Toast.LENGTH_LONG).show();
-        }
+    @Override
+    public void onServiceDisconnected(ComponentName name) {
 
     }
+
 
     private void setupViews() {
         playButton = (ImageView) findViewById(R.id.button_play);
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                startService(new Intent(MusicPlayerActivity.this, MusicPlayerService.class));
+
                 if (mediaPlayer.isPlaying()) {
                     mediaPlayer.pause();
                     playButton.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_play, null));
@@ -155,9 +143,9 @@ public class MusicPlayerActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        mediaPlayer.release();
         timer.purge();
         timer.cancel();
+        unbindService(this);
         super.onDestroy();
     }
 }

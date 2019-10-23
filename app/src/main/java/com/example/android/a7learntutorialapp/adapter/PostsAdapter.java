@@ -17,6 +17,7 @@ import com.example.android.a7learntutorialapp.datamodel.Post;
 import com.example.android.a7learntutorialapp.view.activity.PostActivity;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,12 +27,16 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.NewsViewHold
 
 
     private Context context;
-    private List<Post> posts;
+    private List<Post> posts=new ArrayList<>();
     Typeface yekanTypeface;
 
-    public PostsAdapter(Context context, List<Post> posts) {
+    public PostsAdapter(Context context) {
         this.context = context;
-        this.posts = posts;
+    }
+
+    public void addPosts(List<Post> posts){
+        this.posts.addAll(posts);
+        notifyDataSetChanged();
     }
 
     @Override
@@ -45,7 +50,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.NewsViewHold
     public void onBindViewHolder(NewsViewHolder holder, int position) {
         final Post post = posts.get(position);
         //استفاده از کتابخانه پیکاسو جهت کش کردن تصاویر دریافتی از سرور برای استفاده های بعدی
-        Picasso.with(context).load(post.getPostImageUrl().replace("localhost", "192.168.1.106")).into(holder.newsImage);
+//        Picasso.with(context).load(post.getPostImageUrl().replace("localhost", "192.168.1.106")).into(holder.newsImage);
+        Picasso.with(context).load(post.getPostImage()).into(holder.newsImage);
         holder.title.setText(post.getTitle());
         holder.content.setText(post.getContent());
         holder.date.setText(post.getDate());

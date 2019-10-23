@@ -21,39 +21,40 @@ import java.util.List;
  * Created by Saeed shahini on 7/21/2016.
  */
 public class DataFakeGenerator {
-    public static List<Post> getData(Context context) {
-        /*
+    private static final int POSTS_PER_PAGE = 6;
+
+    public static List<Post> getPosts(int page) {
+
         List<Post> posts = new ArrayList<>();
         for (int i = 1; i <= 6; i++) {
             Post post = new Post();
             post.setId(i);
-            post.setTitle("لورم ایپسوم متن ساختگی");
+            post.setTitle(" پست شماره ی "+String.valueOf((page*POSTS_PER_PAGE)+i));
             post.setContent("لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.");
             post.setDate("2 ساعت پیش");
             switch (i) {
                 case 1:
-                    post.setPostImageUrl(ResourcesCompat.getDrawable(context.getResources(), R.drawable.pic1, null));
+                    post.setPostImage(R.drawable.pic1);
                     break;
                 case 2:
-                    post.setPostImageUrl(ResourcesCompat.getDrawable(context.getResources(), R.drawable.pic2, null));
+                    post.setPostImage(R.drawable.pic2);
                     break;
                 case 3:
-                    post.setPostImageUrl(ResourcesCompat.getDrawable(context.getResources(), R.drawable.pic3, null));
+                    post.setPostImage(R.drawable.pic3);
                     break;
                 case 4:
-                    post.setPostImageUrl(ResourcesCompat.getDrawable(context.getResources(), R.drawable.pic4, null));
+                    post.setPostImage(R.drawable.pic4);
                     break;
                 case 5:
-                    post.setPostImageUrl(ResourcesCompat.getDrawable(context.getResources(), R.drawable.pic5, null));
+                    post.setPostImage(R.drawable.pic5);
                     break;
                 case 6:
-                    post.setPostImageUrl(ResourcesCompat.getDrawable(context.getResources(), R.drawable.pic6, null));
+                    post.setPostImage(R.drawable.pic6);
                     break;
             }
             posts.add(post);
         }
-        */
-        return null;
+        return posts;
     }
 
 

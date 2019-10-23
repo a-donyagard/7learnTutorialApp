@@ -3,6 +3,7 @@ package com.example.android.a7learntutorialapp.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,11 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import ss.com.bannerslider.banners.DrawableBanner;
+import ss.com.bannerslider.banners.RemoteBanner;
+import ss.com.bannerslider.events.OnBannerClickListener;
+import ss.com.bannerslider.views.BannerSlider;
 
 /**
  * Created by Saeed shahini on 9/9/2016.
@@ -102,11 +108,41 @@ public class AppFeaturesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     public static class AppFeatureBanner extends RecyclerView.ViewHolder {
 //        private TextView appFeaturesLabel;
+        private BannerSlider bannerSlider;
 
         public AppFeatureBanner(View itemView, Typeface typeface) {
             super(itemView);
 //            appFeaturesLabel = (TextView) itemView.findViewById(R.id.label_app_features_list);
 //            appFeaturesLabel.setTypeface(typeface);
+            bannerSlider=itemView.findViewById(R.id.banner_slider);
+            bannerSlider.addBanner(new RemoteBanner("http://s.7learn.com/img/slide-android.png"));
+            bannerSlider.addBanner(new DrawableBanner(R.drawable.bottom_navigation_banner));
+            bannerSlider.addBanner(new DrawableBanner(R.drawable.constaint_layout_sample_banner));
+            bannerSlider.addBanner(new DrawableBanner(R.drawable.infinite_scroll_provider_banner));
+            bannerSlider.setOnBannerClickListener(new OnBannerClickListener() {
+                @Override
+                public void onClick(int position) {
+                    switch (position) {
+                        case 0:
+                            showWebpage("http://www.7learn.com/class/9101");
+                            break;
+                        case 1:
+                            showWebpage("https://github.com/saeedsh92/Infinite-Scroll-Provider");
+                            break;
+                        case 2:
+                            showWebpage("https://github.com/saeedsh92/bottomnavigation");
+                            break;
+                        case 3:
+                            showWebpage("https://github.com/saeedsh92/ConstraintLayoutSample");
+                            break;
+                    }
+                }
+            });
+        }
+
+        private void showWebpage(String url) {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            itemView.getContext().startActivity(Intent.createChooser(intent, "انتخاب مرورگر..."));
         }
     }
 }

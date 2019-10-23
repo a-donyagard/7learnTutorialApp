@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private Snackbar connectivityMessageSnackBar;
     private CoordinatorLayout coordinatorLayout;
     private ConnectivityListener connectivityListener;
+    DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupToolbar() {
-        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -125,6 +126,10 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.navigation_menu_store:
                         startActivity(new Intent(MainActivity.this, BoutiqueActivity.class));
+                        break;
+                    case R.id.navigation_menu_main_activity:
+                        drawerLayout.closeDrawers();
+                        break;
                 }
                 return true;
             }
