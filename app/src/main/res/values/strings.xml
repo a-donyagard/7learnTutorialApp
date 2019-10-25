@@ -27,4 +27,8 @@
     <string name="menu_title_view_github">Github</string>
     <string name="menu_title_view_profile">پروفایل</string>
     <string name="menu_title_sign_out">خروج</string>
+    <string name="default_notification_channel_id">FCM notification channel</string>
+
+    <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
+    <string name="fcm_message">FCM message</string>
 </resources>

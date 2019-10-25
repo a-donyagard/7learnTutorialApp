@@ -77,6 +77,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.NewsViewHold
                 intent.putExtra(SevenLearnDatabaseOpenHelper.COL_POST_IMAGE_URL, post.getPostImageUrl());
                 intent.putExtra(SevenLearnDatabaseOpenHelper.COL_IS_VISITED, post.getIsVisited());
                 intent.putExtra(SevenLearnDatabaseOpenHelper.COL_DATE, post.getDate());
+                intent.putExtra("image_res_id",post.getPostImage());
                 context.startActivity(intent);
             }
         });
