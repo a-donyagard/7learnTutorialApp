@@ -120,6 +120,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                             showPostActivityIntent.putExtra(SevenLearnDatabaseOpenHelper.COL_CONTENT, postContent);
                             showPostActivityIntent.putExtra(SevenLearnDatabaseOpenHelper.COL_POST_IMAGE_URL, postImageUrl);
                             showPostActivityIntent.putExtra(SevenLearnDatabaseOpenHelper.COL_DATE, postDate);
+                            showPostActivityIntent.putExtra(PostActivity.EXTRA_KEY_IS_FROM_NOTIFICATIONS,true);
                             showPostActivityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             sendNotification(remoteMessage.getNotification().getBody(), showPostActivityIntent);
                     }
