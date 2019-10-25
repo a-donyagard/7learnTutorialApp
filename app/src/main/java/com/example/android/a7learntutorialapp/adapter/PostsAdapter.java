@@ -27,15 +27,20 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.NewsViewHold
 
 
     private Context context;
-    private List<Post> posts=new ArrayList<>();
+    private List<Post> posts = new ArrayList<>();
     Typeface yekanTypeface;
 
     public PostsAdapter(Context context) {
         this.context = context;
     }
 
-    public void addPosts(List<Post> posts){
+    public void addPosts(List<Post> posts) {
         this.posts.addAll(posts);
+        notifyDataSetChanged();
+    }
+
+    public void clear() {
+        this.posts = new ArrayList<>();
         notifyDataSetChanged();
     }
 

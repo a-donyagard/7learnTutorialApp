@@ -34,9 +34,9 @@ public class ApiService {
     }
 
     public void getCurrentWeather(final OnWeatherInfoReceived onWeatherInfoReceived, String cityName) {
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
-                "https://api.openweathermap.org/data/2.5/weather?q="+cityName+"&apikey=0067ea3ffc9cad0548529afa3639f76f",
-                null, new Response.Listener<JSONObject>() {
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
+                    "https://api.openweathermap.org/data/2.5/weather?q="+cityName+"&apikey=0067ea3ffc9cad0548529afa3639f76f",
+                    null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Log.i(TAG, "onResponse: " + response.toString());
