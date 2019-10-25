@@ -1,7 +1,7 @@
 package com.example.android.a7learntutorialapp;
 
 import android.content.Context;
-import android.support.v4.content.res.ResourcesCompat;
+import androidx.core.content.res.ResourcesCompat;
 
 import com.example.android.a7learntutorialapp.animations.AnimationsMainActivity;
 import com.example.android.a7learntutorialapp.datamodel.AppFeature;

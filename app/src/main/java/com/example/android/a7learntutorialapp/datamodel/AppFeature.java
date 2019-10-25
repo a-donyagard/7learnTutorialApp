@@ -1,7 +1,6 @@
 package com.example.android.a7learntutorialapp.datamodel;
 
-import android.graphics.drawable.Drawable;
-import android.support.annotation.DrawableRes;
+import androidx.annotation.DrawableRes;
 
 /**
  * Created by Saeed shahini on 9/9/2016.

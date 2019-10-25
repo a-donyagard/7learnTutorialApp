@@ -8,19 +8,13 @@ import android.app.Service;
 import android.content.Intent;
 import android.graphics.Color;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Binder;
-import android.os.Environment;
 import android.os.IBinder;
-import android.support.annotation.Nullable;
-import android.support.v4.app.NotificationCompat;
-import android.widget.Toast;
+import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
 
 import com.example.android.a7learntutorialapp.R;
 import com.example.android.a7learntutorialapp.view.activity.MusicPlayerActivity;
-
-import java.io.File;
-import java.io.IOException;
 
 /**
  * Created by Saeed shahini on 11/11/2016.

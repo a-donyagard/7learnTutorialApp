@@ -2,10 +2,10 @@ package com.example.android.a7learntutorialapp.animations;
 
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.SwitchCompat;
+import androidx.appcompat.widget.SwitchCompat;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;

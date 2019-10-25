@@ -4,23 +4,18 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.media.MediaPlayer;
-import android.net.Uri;
-import android.os.Environment;
 import android.os.IBinder;
-import android.support.v4.content.res.ResourcesCompat;
-import android.support.v7.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.android.a7learntutorialapp.R;
 import com.example.android.a7learntutorialapp.service.MusicPlayerService;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;

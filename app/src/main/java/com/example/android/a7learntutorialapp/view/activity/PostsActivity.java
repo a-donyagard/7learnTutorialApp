@@ -1,25 +1,20 @@
 package com.example.android.a7learntutorialapp.view.activity;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.android.a7learntutorialapp.ApiService;
 import com.example.android.a7learntutorialapp.DataFakeGenerator;
 import com.example.android.a7learntutorialapp.DownloadImageTask;
-import com.example.android.a7learntutorialapp.SevenLearnDatabaseOpenHelper;
 import com.example.android.a7learntutorialapp.adapter.PostsAdapter;
 import com.example.android.a7learntutorialapp.R;
 import com.example.android.a7learntutorialapp.datamodel.Post;

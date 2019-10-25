@@ -1,30 +1,20 @@
 package com.example.android.a7learntutorialapp;
 
-import android.Manifest;
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.media.MediaScannerConnection;
-import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Environment;
-import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
+
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import android.util.Log;
 
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.security.Permission;
-import java.security.Permissions;
 import java.util.ArrayList;
 import java.util.List;
 
