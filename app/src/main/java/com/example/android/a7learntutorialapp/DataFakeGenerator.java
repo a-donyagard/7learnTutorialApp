@@ -8,6 +8,7 @@ import com.example.android.a7learntutorialapp.datamodel.AppFeature;
 import com.example.android.a7learntutorialapp.datamodel.Cloth;
 import com.example.android.a7learntutorialapp.datamodel.Post;
 import com.example.android.a7learntutorialapp.view.activity.BoutiqueActivity;
+import com.example.android.a7learntutorialapp.view.activity.LoginActivity;
 import com.example.android.a7learntutorialapp.view.activity.MainActivity;
 import com.example.android.a7learntutorialapp.view.activity.MusicPlayerActivity;
 import com.example.android.a7learntutorialapp.view.activity.PostsActivity;
@@ -140,7 +141,7 @@ public class DataFakeGenerator {
         appFeature.setId(AppFeature.ID_LOGIN);
         appFeature.setTitle(context.getString(R.string.app_feature_login));
         appFeature.setFeatureImage(R.drawable.login);
-        appFeature.setDestinationActivity(MainActivity.class);
+        appFeature.setDestinationActivity(LoginActivity.class);
         appFeatures.add(appFeature);
 
         appFeature=new AppFeature();

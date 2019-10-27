@@ -33,4 +33,13 @@
         <item name="android:layout_marginLeft">40dp</item>
     </style>
 
+    <style name="authentication_edit_texts_style">
+        <item name="android:padding">@dimen/standard_margin</item>
+        <item name="android:background">@drawable/selector_authentication_edit_texts</item>
+        <item name="android:textSize">@dimen/small_font_size</item>
+        <item name="android:gravity">right</item>
+        <item name="android:layout_marginRight">@dimen/margin_authentication_edit_texts</item>
+        <item name="android:layout_marginLeft">@dimen/margin_authentication_edit_texts</item>
+    </style>
+
 </resources>

@@ -48,4 +48,14 @@ public class UserSharedPrefManager {
         user.setGender((byte) sharedPreferences.getInt(KEY_GENDER, User.MALE));
         return user;
     }
+
+    public void saveUserLoginInfo(String email) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("email", email);
+        editor.commit();
+    }
+
+    public String getUserLoginInfo() {
+        return sharedPreferences.getString("email", "");
+    }
 }

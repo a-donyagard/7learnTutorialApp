@@ -31,4 +31,10 @@
 
     <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
     <string name="fcm_message">FCM message</string>
+
+    <string name="label_login_amoozesh">آموزش صفر تا صد اندروید</string>
+    <string name="label_login">ورود به حساب کاربری</string>
+    <string name="label_sign_up">ایجاد حساب کاربری</string>
+    <string name="label_authentication_email_hint">آدرس ایمیل</string>
+    <string name="label_authentication_password_hint">رمز عبور</string>
 </resources>

@@ -1,10 +1,13 @@
 package com.example.android.a7learntutorialapp.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
+
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +16,8 @@ import android.widget.TextView;
 
 import com.example.android.a7learntutorialapp.R;
 import com.example.android.a7learntutorialapp.datamodel.AppFeature;
+import com.example.android.a7learntutorialapp.view.activity.LoginActivity;
+import com.example.android.a7learntutorialapp.view.activity.MainActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -99,22 +104,28 @@ public class AppFeaturesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    itemView.getContext().startActivity(new Intent(itemView.getContext(),
-                            appFeature.getDestinationActivity()));
+                    if (appFeature.getDestinationActivity() == LoginActivity.class) {
+                        Activity activity = (Activity) itemView.getContext();
+                        activity.startActivityForResult(new Intent(itemView.getContext(),
+                                LoginActivity.class), MainActivity.REQUEST_CODE_LOGIN);
+                    } else {
+                        itemView.getContext().startActivity(new Intent(itemView.getContext(),
+                                appFeature.getDestinationActivity()));
+                    }
                 }
             });
         }
     }
 
     public static class AppFeatureBanner extends RecyclerView.ViewHolder {
-//        private TextView appFeaturesLabel;
+        //        private TextView appFeaturesLabel;
         private BannerSlider bannerSlider;
 
         public AppFeatureBanner(View itemView, Typeface typeface) {
             super(itemView);
 //            appFeaturesLabel = (TextView) itemView.findViewById(R.id.label_app_features_list);
 //            appFeaturesLabel.setTypeface(typeface);
-            bannerSlider=itemView.findViewById(R.id.banner_slider);
+            bannerSlider = itemView.findViewById(R.id.banner_slider);
             bannerSlider.addBanner(new RemoteBanner("http://s.7learn.com/img/slide-android.png"));
             bannerSlider.addBanner(new DrawableBanner(R.drawable.bottom_navigation_banner));
             bannerSlider.addBanner(new DrawableBanner(R.drawable.constaint_layout_sample_banner));

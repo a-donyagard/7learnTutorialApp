@@ -34,9 +34,9 @@ public class ApiService {
     }
 
     public void getCurrentWeather(final OnWeatherInfoReceived onWeatherInfoReceived, String cityName) {
-            JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
-                    "https://api.openweathermap.org/data/2.5/weather?q="+cityName+"&apikey=0067ea3ffc9cad0548529afa3639f76f",
-                    null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
+                "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&apikey=0067ea3ffc9cad0548529afa3639f76f",
+                null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Log.i(TAG, "onResponse: " + response.toString());
@@ -122,30 +122,70 @@ public class ApiService {
     }
 
 
-    public void signUpUser(JSONObject requestJsonObject, final OnSignupComplete onSignupComplete) {
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST,
-                "http://192.168.1.106/7learn/SaveUser.php",
-                requestJsonObject,
-                new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
+    public static final int STATUS_SUCCESS = 1;
+    public static final int STATUS_FAILED = 0;
+    public static final int STATUS_EMAIL_EXIST = 2;
 
-                try {
-                    boolean success = response.getBoolean("success");
-                    onSignupComplete.onSignUp(success);
-                } catch (JSONException e) {
-                    e.printStackTrace();
+    public void signUpUser(String email, String password, final OnSignupComplete onSignupComplete) {
+        JSONObject requestJsonObject = new JSONObject();
+        try {
+            requestJsonObject.put("email", email);
+            requestJsonObject.put("password", password);
+
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, "http://192.168.1.106/7learn/SaveUser.php", requestJsonObject, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    try {
+                        int responseStatus = response.getInt("response");
+                        onSignupComplete.onSignUp(responseStatus);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                onSignupComplete.onSignUp(false);
-            }
-        });
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    onSignupComplete.onSignUp(STATUS_FAILED);
+                }
+            });
 
-        request.setRetryPolicy(new DefaultRetryPolicy(18000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(context).add(request);
+            request.setRetryPolicy(new DefaultRetryPolicy(18000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            Volley.newRequestQueue(context).add(request);
+
+        } catch (JSONException e) {
+            Log.e(TAG, "signUpUser: " + e.toString());
+        }
+
+    }
+
+    public void loginUser(String email, String password, final OnLoginResponse onLoginResponse) {
+        JSONObject requestJsonObject = new JSONObject();
+        try {
+            requestJsonObject.put("email", email);
+            requestJsonObject.put("password", password);
+
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, "http://192.168.1.106/7learn/LoginUser.php", requestJsonObject, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    try {
+                        boolean success = response.getBoolean("response");
+                        onLoginResponse.onResponse(success);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                }
+            });
+            request.setRetryPolicy(new DefaultRetryPolicy(18000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            Volley.newRequestQueue(context).add(request);
+        } catch (JSONException e) {
+            Log.e(TAG, "loginUser: " + e.toString());
+        }
     }
 
     public interface OnWeatherInfoReceived {
@@ -157,6 +197,10 @@ public class ApiService {
     }
 
     public interface OnSignupComplete {
-        void onSignUp(boolean success);
+        void onSignUp(int responseStatus);
+    }
+
+    public interface OnLoginResponse {
+        void onResponse(boolean success);
     }
 }

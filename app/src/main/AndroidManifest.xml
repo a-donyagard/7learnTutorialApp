@@ -85,6 +85,8 @@
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorAccent" />
 
+        <activity android:name=".view.activity.LoginActivity"/>
+<!--            android:windowSoftInputMode="adjustPan"   هنگام باز شدن کیبورد، بقیه مکان بقیه ویوها تغییر نکند-->
     </application>
 
 </manifest>

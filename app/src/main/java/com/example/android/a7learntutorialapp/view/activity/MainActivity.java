@@ -6,19 +6,24 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+
 import androidx.annotation.NonNull;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
+import com.example.android.a7learntutorialapp.UserSharedPrefManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
+
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
+
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
@@ -27,6 +32,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.a7learntutorialapp.DataFakeGenerator;
@@ -44,30 +51,14 @@ public class MainActivity extends AppCompatActivity {
     private ConnectivityListener connectivityListener;
     DrawerLayout drawerLayout;
 
+    private TextView userEmailTextView;
+    private ImageView userAvatarImageView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setupViews();
-
-        //get app token
-        FirebaseInstanceId.getInstance().getInstanceId()
-                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
-                        if (!task.isSuccessful()) {
-                            Log.w(TAG, "getInstanceId failed", task.getException());
-                            return;
-                        }
-
-                        // Get new Instance ID token
-                        String token = task.getResult().getToken();
-
-                        // Log and toast
-                        String msg = getString(R.string.msg_token_fmt, token);
-                        Log.d(TAG, msg);
-                    }
-                });
     }
 
 
@@ -160,6 +151,15 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+        userEmailTextView = (TextView) navigationView.getHeaderView(0).findViewById(R.id.text_email);
+        userAvatarImageView = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.image_user_avatar);
+
+        UserSharedPrefManager userSharedPrefManager = new UserSharedPrefManager(MainActivity.this);
+        String email = userSharedPrefManager.getUserLoginInfo();
+        if (!email.isEmpty()) {
+            showUserEmail(email);
+        }
     }
 
     private class ConnectivityListener extends BroadcastReceiver {
@@ -201,5 +201,26 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showUserEmail(String email) {
+        userEmailTextView.setText(email);
+        userAvatarImageView.setVisibility(View.VISIBLE);
+    }
+
+    public static final int REQUEST_CODE_LOGIN = 1001;
+    public static final int RESULT_OK = 1;
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_LOGIN) {
+            if (resultCode == RESULT_OK) {
+                String email = data.getStringExtra("email");
+                if (email != null && !email.isEmpty()) {
+                    showUserEmail(email);
+                }
+            }
+        }
     }
 }

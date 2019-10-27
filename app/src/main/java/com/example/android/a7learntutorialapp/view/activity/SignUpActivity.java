@@ -70,7 +70,7 @@ public class SignUpActivity extends AppCompatActivity {
                     requestJsonObject.put("skills", skillsJsonArray);
 
 
-                    apiService.signUpUser(requestJsonObject, new ApiService.OnSignupComplete() {
+                    /*apiService.signUpUser(requestJsonObject, new ApiService.OnSignupComplete() {
                         @Override
                         public void onSignUp(boolean success) {
                             if (success) {
@@ -79,7 +79,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 Toast.makeText(SignUpActivity.this, "ثبت نام انجام نشد، دوباره سعی کنید!", Toast.LENGTH_LONG).show();
                             }
                         }
-                    });
+                    });*/
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

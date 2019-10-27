@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_login"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context=".view.activity.LoginActivity">
+
+    <Button
+        android:id="@+id/button_authentication"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="@dimen/standard_margin"
+        android:background="@drawable/selector_accent_button"
+        android:text="@string/label_sign_up"
+        android:textColor="@color/white"
+        android:textSize="14dp" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_authentication_container"
+        style="@style/CardView"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/button_authentication"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginTop="@dimen/standard_margin_x2"
+        android:layout_marginBottom="75dp"
+        app:cardCornerRadius="@dimen/standard_card_radius"
+        app:cardElevation="@dimen/standard_card_elevation">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/banner_login" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:padding="@dimen/standard_margin"
+                    android:text="@string/label_login_amoozesh"
+                    android:textSize="@dimen/large_font_size" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp">
+
+                    <View
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:background="@color/colorAccent" />
+
+                    <TextView
+                        android:id="@+id/label_authentication"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:gravity="right"
+                        android:text="@string/label_login"
+                        android:textSize="@dimen/small_font_size" />
+                </RelativeLayout>
+
+                <EditText
+                    android:id="@+id/edit_text_email"
+                    style="@style/authentication_edit_texts_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/label_authentication_email_hint"
+                    android:inputType="textEmailAddress" />
+
+                <EditText
+                    android:id="@+id/edit_text_password"
+                    style="@style/authentication_edit_texts_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/standard_margin"
+                    android:layout_marginBottom="30dp"
+                    android:hint="@string/label_authentication_password_hint"
+                    android:inputType="textPassword" />
+            </LinearLayout>
+
+        </ScrollView>
+
+    </androidx.cardview.widget.CardView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/float_button_authenticate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_action_login"
+        app:fabSize="mini"
+        app:layout_anchor="@id/card_authentication_container"
+        app:layout_anchorGravity="bottom|center_horizontal" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
