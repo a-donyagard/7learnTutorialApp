@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:allowBackup="true"
@@ -17,12 +17,16 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
 
-        <activity android:name=".view.activity.MusicPlayerActivity" />
+        <activity
+            android:name=".view.activity.MusicPlayerActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.activity.VideoPlayerActivity"
             android:configChanges="orientation|screenSize" />
-        <activity android:name=".view.activity.SignUpActivity"></activity>
-        <activity android:name=".view.activity.MainActivity">
+        <activity android:name=".view.activity.SignUpActivity" />
+        <activity
+            android:name=".view.activity.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,19 +35,28 @@
         </activity>
         <activity
             android:name=".view.activity.BoutiqueActivity"
-            android:label="بوتیک" />
+            android:label="بوتیک"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.activity.ProfileActivity"
             android:label="اطلاعات کاربری"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".view.activity.PostsActivity"
-            android:label="آخرین پست ها"/>
+        <activity
+            android:name=".view.activity.PostsActivity"
+            android:label="آخرین پست ها"
+            android:screenOrientation="portrait" />
         <activity android:name=".view.activity.WeatherSampleActivity" />
-        <activity android:name=".view.activity.PostActivity" />
+        <activity
+            android:name=".view.activity.PostActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".animations.AnimationsMainActivity"
-            android:label="@string/animations_main_activity_toolbar_title" />
-        <activity android:name=".animations.AnimationActivity" />
+            android:label="@string/animations_main_activity_toolbar_title"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".animations.AnimationActivity"
+            android:screenOrientation="portrait" />
 
         <receiver android:name=".CustomBroadCastReceiver">
             <intent-filter>
@@ -85,8 +98,10 @@
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorAccent" />
 
-        <activity android:name=".view.activity.LoginActivity"/>
-<!--            android:windowSoftInputMode="adjustPan"   هنگام باز شدن کیبورد، بقیه مکان بقیه ویوها تغییر نکند-->
+        <activity
+            android:name=".view.activity.LoginActivity"
+            android:screenOrientation="portrait" />
+        <!--            android:windowSoftInputMode="adjustPan"   هنگام باز شدن کیبورد، بقیه مکان بقیه ویوها تغییر نکند-->
     </application>
 
 </manifest>
