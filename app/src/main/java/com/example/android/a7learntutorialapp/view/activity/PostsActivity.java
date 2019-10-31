@@ -2,7 +2,10 @@ package com.example.android.a7learntutorialapp.view.activity;
 
 import android.os.Handler;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,11 +16,14 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.android.a7learntutorialapp.ApiService;
 import com.example.android.a7learntutorialapp.DataFakeGenerator;
 import com.example.android.a7learntutorialapp.DownloadImageTask;
+import com.example.android.a7learntutorialapp.SevenLearnDatabaseOpenHelper;
 import com.example.android.a7learntutorialapp.adapter.PostsAdapter;
 import com.example.android.a7learntutorialapp.R;
-import com.example.android.a7learntutorialapp.datamodel.Post;
+import com.example.android.a7learntutorialapp.room_vewmodel.Post;
+import com.example.android.a7learntutorialapp.room_vewmodel.PostViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +41,8 @@ public class PostsActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private SwipeRefreshLayout swipeRefreshLayout;
 
+    private PostViewModel mPostViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +51,7 @@ public class PostsActivity extends AppCompatActivity {
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
         setupRecyclerView();
 
-        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.refresh_layout);
+        /* swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.refresh_layout);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -60,10 +68,20 @@ public class PostsActivity extends AppCompatActivity {
         });
 
         swipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(this, R.color.colorPrimary)
-                , ContextCompat.getColor(this, R.color.colorAccent));
+                , ContextCompat.getColor(this, R.color.colorAccent)); */
 
-        /*
-        getPostsFromDatabase();
+        //old way by sqlite
+//        getPostsFromDatabase();
+
+        //new way by ROOM and ViewModel
+        mPostViewModel = ViewModelProviders.of(this).get(PostViewModel.class);
+        mPostViewModel.getPosts().observe(this, new Observer<List<Post>>() {
+            @Override
+            public void onChanged(@Nullable final List<Post> posts) {
+                // Update the cached copy of the words in the adapter.
+                PostsAdapter postsAdapter = new PostsAdapter(PostsActivity.this, posts);
+            }
+        });
 
         ApiService apiService = new ApiService(this);
         apiService.getPosts(new ApiService.OnPostsReceived() {
@@ -71,12 +89,16 @@ public class PostsActivity extends AppCompatActivity {
             public void onReceived(List<Post> posts) {
                 PostsActivity.this.posts = posts;
 
-                SevenLearnDatabaseOpenHelper openHelper = new SevenLearnDatabaseOpenHelper(PostsActivity.this);
-                //openHelper.addPosts(posts);
+                //old way by sqlite
+//                SevenLearnDatabaseOpenHelper openHelper = new SevenLearnDatabaseOpenHelper(PostsActivity.this);
+//                openHelper.addPosts(posts);
+
+                mPostViewModel.addPosts(posts);
 
                 PostsAdapter postsAdapter = new PostsAdapter(PostsActivity.this, posts);
                 recyclerView.setAdapter(postsAdapter);
 
+                /*
                 //چک کردن و درخواست پرمیژن نوشتن در کارت حافظه از کاربر و سپس ذخیره عکس ها در کارت حافظه
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
@@ -86,10 +108,10 @@ public class PostsActivity extends AppCompatActivity {
                     }
                 } else {
                     saveImagesInSdCard();
-                }
+                } */
             }
         });
-        */
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -110,7 +132,7 @@ public class PostsActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(PostsActivity.this, LinearLayoutManager.VERTICAL, false));
 
-        postsAdapter = new PostsAdapter(this);
+        /* postsAdapter = new PostsAdapter(this);
         postsAdapter.addPosts(getFakePosts());
         recyclerView.setAdapter(postsAdapter);
 
@@ -128,17 +150,17 @@ public class PostsActivity extends AppCompatActivity {
                     }
                 }, 2000);
             }
-        });
+        }); */
     }
 
-    /*
-    private void getPostsFromDatabase() {
+
+    /* private void getPostsFromDatabase() {
         SevenLearnDatabaseOpenHelper databaseOpenHelper = new SevenLearnDatabaseOpenHelper(this);
         List<Post> posts = databaseOpenHelper.getPosts();
         PostsAdapter postsAdapter = new PostsAdapter(this, posts);
         recyclerView.setAdapter(postsAdapter);
-    }
-    */
+    } */
+
 
     private void saveImagesInSdCard() {
         List<String> urls = new ArrayList<>();
@@ -162,7 +184,7 @@ public class PostsActivity extends AppCompatActivity {
         }
     }
 
-    private List<Post> getFakePosts() {
+    /* private List<Post> getFakePosts() {
         return DataFakeGenerator.getPosts(page);
-    }
+    } */
 }

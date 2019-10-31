@@ -3,8 +3,10 @@ package com.example.android.a7learntutorialapp.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +15,7 @@ import android.widget.TextView;
 
 import com.example.android.a7learntutorialapp.R;
 import com.example.android.a7learntutorialapp.SevenLearnDatabaseOpenHelper;
-import com.example.android.a7learntutorialapp.datamodel.Post;
+import com.example.android.a7learntutorialapp.room_vewmodel.Post;
 import com.example.android.a7learntutorialapp.view.activity.PostActivity;
 import com.squareup.picasso.Picasso;
 
@@ -27,22 +29,24 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.NewsViewHold
 
 
     private Context context;
-    private List<Post> posts = new ArrayList<>();
+//    private List<Post> posts = new ArrayList<>();
+    private List<Post> posts;
     Typeface yekanTypeface;
 
-    public PostsAdapter(Context context) {
+    public PostsAdapter(Context context, List<Post> posts) {
         this.context = context;
+        this.posts = posts;
     }
 
-    public void addPosts(List<Post> posts) {
+    /* public void addPosts(List<Post> posts) {
         this.posts.addAll(posts);
         notifyDataSetChanged();
-    }
+    } */
 
-    public void clear() {
+    /*public void clear() {
         this.posts = new ArrayList<>();
         notifyDataSetChanged();
-    }
+    }*/
 
     @Override
     public NewsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -55,8 +59,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.NewsViewHold
     public void onBindViewHolder(NewsViewHolder holder, int position) {
         final Post post = posts.get(position);
         //استفاده از کتابخانه پیکاسو جهت کش کردن تصاویر دریافتی از سرور برای استفاده های بعدی
-//        Picasso.with(context).load(post.getPostImageUrl().replace("localhost", "192.168.1.106")).into(holder.newsImage);
-        Picasso.with(context).load(post.getPostImage()).into(holder.newsImage);
+        Picasso.with(context).load(post.getPostImageUrl().replace("localhost", "192.168.1.106")).into(holder.newsImage);
+//        Picasso.with(context).load(post.getPostImage()).into(holder.newsImage);
         holder.title.setText(post.getTitle());
         holder.content.setText(post.getContent());
         holder.date.setText(post.getDate());
@@ -77,7 +81,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.NewsViewHold
                 intent.putExtra(SevenLearnDatabaseOpenHelper.COL_POST_IMAGE_URL, post.getPostImageUrl());
                 intent.putExtra(SevenLearnDatabaseOpenHelper.COL_IS_VISITED, post.getIsVisited());
                 intent.putExtra(SevenLearnDatabaseOpenHelper.COL_DATE, post.getDate());
-                intent.putExtra("image_res_id",post.getPostImage());
+//                intent.putExtra("image_res_id", post.getPostImage());
                 context.startActivity(intent);
             }
         });

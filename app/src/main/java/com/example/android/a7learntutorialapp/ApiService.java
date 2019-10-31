@@ -11,8 +11,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.android.a7learntutorialapp.datamodel.Post;
 import com.example.android.a7learntutorialapp.datamodel.WeatherInfo;
+import com.example.android.a7learntutorialapp.room_vewmodel.Post;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -91,9 +91,9 @@ public class ApiService {
             public void onResponse(JSONArray response) {
                 Log.i(TAG, "onResponse: " + response.toString());
 
-                List<Post> posts = new ArrayList<>();
+                List<com.example.android.a7learntutorialapp.room_vewmodel.Post> posts = new ArrayList<>();
                 for (int i = 0; i < response.length(); i++) {
-                    Post post = new Post();
+                    com.example.android.a7learntutorialapp.room_vewmodel.Post post = new Post();
                     try {
                         JSONObject jsonObject = response.getJSONObject(i);
                         post.setTitle(jsonObject.getString("title"));
@@ -193,7 +193,7 @@ public class ApiService {
     }
 
     public interface OnPostsReceived {
-        void onReceived(List<Post> posts);
+        void onReceived(List<com.example.android.a7learntutorialapp.room_vewmodel.Post> posts);
     }
 
     public interface OnSignupComplete {
