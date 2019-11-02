@@ -1,9 +1,7 @@
-package com.example.android.a7learntutorialapp.room_vewmodel;
+package com.example.android.a7learntutorialapp.roomviewmodel;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
-
-import java.util.List;
 
 public class InsertPostsTask extends AsyncTask<Post, Void, Void> {
     private PostDao mAsyncTaskDao;
@@ -16,9 +14,7 @@ public class InsertPostsTask extends AsyncTask<Post, Void, Void> {
 
     @Override
     protected Void doInBackground(Post... posts) {
-        for(Post post: posts){
-            mAsyncTaskDao.addPosts(post);
-        }
+        mAsyncTaskDao.addPosts(posts);
         return null;
     }
 }

@@ -8,11 +8,10 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.android.a7learntutorialapp.datamodel.WeatherInfo;
-import com.example.android.a7learntutorialapp.room_vewmodel.Post;
+import com.example.android.a7learntutorialapp.roomviewmodel.Post;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -86,39 +85,45 @@ public class ApiService {
 
 
     public void getPosts(final OnPostsReceived onPostsReceived) {
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, "http://192.168.1.106/7learn/getposts.php", null, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-                Log.i(TAG, "onResponse: " + response.toString());
-
-                List<com.example.android.a7learntutorialapp.room_vewmodel.Post> posts = new ArrayList<>();
-                for (int i = 0; i < response.length(); i++) {
-                    com.example.android.a7learntutorialapp.room_vewmodel.Post post = new Post();
-                    try {
-                        JSONObject jsonObject = response.getJSONObject(i);
-                        post.setTitle(jsonObject.getString("title"));
-                        post.setId(jsonObject.getInt("id"));
-                        post.setContent(jsonObject.getString("content"));
-                        post.setPostImageUrl(jsonObject.getString("image_url"));
-                        post.setDate(jsonObject.getString("date"));
-
-                        posts.add(post);
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-                onPostsReceived.onReceived(posts);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "onErrorResponse: " + error);
-            }
-        });
-
-        request.setRetryPolicy(new DefaultRetryPolicy(18000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(context).add(request);
+        List<Post> posts = new ArrayList<>();
+        for (int i = 0; i < 6; i++) {
+            com.example.android.a7learntutorialapp.roomviewmodel.Post post = new com.example.android.a7learntutorialapp.roomviewmodel.Post(i,"https://google.com","jsj", "aklsdhf", "980708",0);
+            posts.add(post);
+        }
+        onPostsReceived.onReceived(posts);
+//        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, "http://192.168.1.106/7learn/getposts.php", null, new Response.Listener<JSONArray>() {
+//            @Override
+//            public void onResponse(JSONArray response) {
+//                Log.i(TAG, "onResponse: " + response.toString());
+//
+//                List<com.example.android.a7learntutorialapp.room_vewmodel.Post> posts = new ArrayList<>();
+//                for (int i = 0; i < response.length(); i++) {
+//                    com.example.android.a7learntutorialapp.room_vewmodel.Post post = new Post();
+//                    try {
+//                        JSONObject jsonObject = response.getJSONObject(i);
+//                        post.setTitle(jsonObject.getString("title"));
+//                        post.setId(jsonObject.getInt("id"));
+//                        post.setContent(jsonObject.getString("content"));
+//                        post.setPostImageUrl(jsonObject.getString("image_url"));
+//                        post.setDate(jsonObject.getString("date"));
+//
+//                        posts.add(post);
+//
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//                onPostsReceived.onReceived(posts);
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                Log.e(TAG, "onErrorResponse: " + error);
+//            }
+//        });
+//
+//        request.setRetryPolicy(new DefaultRetryPolicy(18000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+//        Volley.newRequestQueue(context).add(request);
     }
 
 
@@ -193,7 +198,7 @@ public class ApiService {
     }
 
     public interface OnPostsReceived {
-        void onReceived(List<com.example.android.a7learntutorialapp.room_vewmodel.Post> posts);
+        void onReceived(List<com.example.android.a7learntutorialapp.roomviewmodel.Post> posts);
     }
 
     public interface OnSignupComplete {

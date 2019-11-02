@@ -1,4 +1,4 @@
-package com.example.android.a7learntutorialapp.room_vewmodel;
+package com.example.android.a7learntutorialapp.roomviewmodel;
 
 import android.app.Application;
 
@@ -7,17 +7,15 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 
 public class PostRepository {
-    PostDao mPostDao;
-    LiveData<List<Post>> mPosts;
+    private PostDao mPostDao;
 
     PostRepository(Application application) {
         PostRoomDatabase db = PostRoomDatabase.getDatabase(application);
         mPostDao = db.postDao();
-        mPosts = mPostDao.getPosts();
     }
 
     LiveData<List<Post>> getPosts(){
-        return mPosts;
+        return mPostDao.getPosts();
     }
 
     public void addPosts(List<Post> posts){

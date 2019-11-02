@@ -1,4 +1,4 @@
-package com.example.android.a7learntutorialapp.room_vewmodel;
+package com.example.android.a7learntutorialapp.roomviewmodel;
 
 import android.content.Context;
 

@@ -1,9 +1,7 @@
 package com.example.android.a7learntutorialapp.view.activity;
 
-import android.os.Handler;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -17,19 +15,14 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.android.a7learntutorialapp.ApiService;
-import com.example.android.a7learntutorialapp.DataFakeGenerator;
 import com.example.android.a7learntutorialapp.DownloadImageTask;
-import com.example.android.a7learntutorialapp.SevenLearnDatabaseOpenHelper;
 import com.example.android.a7learntutorialapp.adapter.PostsAdapter;
 import com.example.android.a7learntutorialapp.R;
-import com.example.android.a7learntutorialapp.room_vewmodel.Post;
-import com.example.android.a7learntutorialapp.room_vewmodel.PostViewModel;
+import com.example.android.a7learntutorialapp.roomviewmodel.Post;
+import com.example.android.a7learntutorialapp.roomviewmodel.PostViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import ss.com.infinitescrollprovider.InfiniteScrollProvider;
-import ss.com.infinitescrollprovider.OnLoadMoreListener;
 
 public class PostsActivity extends AppCompatActivity {
 

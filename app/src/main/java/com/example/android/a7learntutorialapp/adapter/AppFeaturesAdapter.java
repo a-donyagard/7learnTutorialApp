@@ -5,14 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
-
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android.a7learntutorialapp.R;
 import com.example.android.a7learntutorialapp.datamodel.AppFeature;
@@ -126,7 +125,7 @@ public class AppFeaturesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 //            appFeaturesLabel = (TextView) itemView.findViewById(R.id.label_app_features_list);
 //            appFeaturesLabel.setTypeface(typeface);
             bannerSlider = itemView.findViewById(R.id.banner_slider);
-            bannerSlider.addBanner(new RemoteBanner("http://s.7learn.com/img/slide-android.png"));
+            bannerSlider.addBanner(new RemoteBanner("https://s.7learn.com/img/slide-android.png"));
             bannerSlider.addBanner(new DrawableBanner(R.drawable.bottom_navigation_banner));
             bannerSlider.addBanner(new DrawableBanner(R.drawable.constaint_layout_sample_banner));
             bannerSlider.addBanner(new DrawableBanner(R.drawable.infinite_scroll_provider_banner));

@@ -1,4 +1,4 @@
-package com.example.android.a7learntutorialapp.room_vewmodel;
+package com.example.android.a7learntutorialapp.roomviewmodel;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -25,6 +25,18 @@ public class Post {
 
     @ColumnInfo(name = "col_is_visited")
     private int isVisited = 0;
+
+    public Post(int id, String postImageUrl, String title, String content, String date, int isVisited) {
+        this.id = id;
+        this.postImageUrl = postImageUrl;
+        this.title = title;
+        this.content = content;
+        this.date = date;
+        this.isVisited = isVisited;
+    }
+
+    public Post() {
+    }
 
     public int getId() {
         return id;

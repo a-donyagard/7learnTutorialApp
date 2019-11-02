@@ -1,7 +1,5 @@
 package com.example.android.a7learntutorialapp.datamodel;
 
-import android.graphics.drawable.Drawable;
-
 /**
  * Created by Saeed shahini on 7/21/2016.
  */

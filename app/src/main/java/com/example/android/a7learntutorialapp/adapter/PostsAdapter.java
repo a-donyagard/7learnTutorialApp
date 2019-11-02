@@ -15,11 +15,10 @@ import android.widget.TextView;
 
 import com.example.android.a7learntutorialapp.R;
 import com.example.android.a7learntutorialapp.SevenLearnDatabaseOpenHelper;
-import com.example.android.a7learntutorialapp.room_vewmodel.Post;
+import com.example.android.a7learntutorialapp.roomviewmodel.Post;
 import com.example.android.a7learntutorialapp.view.activity.PostActivity;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

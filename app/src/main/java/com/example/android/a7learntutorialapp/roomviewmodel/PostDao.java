@@ -1,19 +1,18 @@
-package com.example.android.a7learntutorialapp.room_vewmodel;
+package com.example.android.a7learntutorialapp.roomviewmodel;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
-import androidx.room.Update;
 
 import java.util.List;
 
 @Dao
 public interface PostDao {
 
-    @Insert
-    void addPosts(Post post);
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void addPosts(Post... posts);
 
     @Query("SELECT * FROM roomtbl_posts")
     LiveData<List<Post>> getPosts();

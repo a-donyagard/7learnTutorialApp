@@ -1,12 +1,11 @@
 package com.example.android.a7learntutorialapp.view.activity;
 
 import android.content.Intent;
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.android.a7learntutorialapp.R;
 import com.example.android.a7learntutorialapp.SevenLearnDatabaseOpenHelper;
@@ -29,7 +28,7 @@ public class PostActivity extends AppCompatActivity {
 
         int id = intent.getIntExtra(SevenLearnDatabaseOpenHelper.COL_ID, 0);
 
-        setPostVisited(id);
+//        setPostVisited(id);
 
         String title = intent.getStringExtra(SevenLearnDatabaseOpenHelper.COL_TITLE);
         String content = intent.getStringExtra(SevenLearnDatabaseOpenHelper.COL_CONTENT);
@@ -63,7 +62,7 @@ public class PostActivity extends AppCompatActivity {
     }
 
     private void setPostVisited(int postId) {
-        SevenLearnDatabaseOpenHelper databaseOpenHelper = new SevenLearnDatabaseOpenHelper(this);
-        databaseOpenHelper.setPostIsVisited(postId, 1);
+//        SevenLearnDatabaseOpenHelper databaseOpenHelper = new SevenLearnDatabaseOpenHelper(this);
+//        databaseOpenHelper.setPostIsVisited(postId, 1);
     }
 }
