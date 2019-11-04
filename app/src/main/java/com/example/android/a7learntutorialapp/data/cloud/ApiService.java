@@ -11,7 +11,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.android.a7learntutorialapp.data.local.PostEntity;
-import com.example.android.a7learntutorialapp.data.model.WeatherInfo;
+import com.example.android.a7learntutorialapp.data.model.Weather.WeatherInfo;
 
 import org.json.JSONArray;
 import org.json.JSONException;

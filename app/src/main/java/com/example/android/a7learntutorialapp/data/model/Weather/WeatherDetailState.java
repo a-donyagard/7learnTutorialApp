@@ -1,8 +1,8 @@
-package com.example.android.a7learntutorialapp.data.model;
+package com.example.android.a7learntutorialapp.data.model.Weather;
 
 import com.google.gson.annotations.SerializedName;
 
-public class CityWeather {
+public class WeatherDetailState {
     @SerializedName("temp")
     private final float temperature;
     @SerializedName("pressure")
@@ -14,7 +14,7 @@ public class CityWeather {
     @SerializedName("temp_max")
     private final float maxTemp;
 
-    public CityWeather(float temperature, int pressure, int humidity, float minTemp, float maxTemp) {
+    public WeatherDetailState(float temperature, int pressure, int humidity, float minTemp, float maxTemp) {
         this.temperature = temperature;
         this.pressure = pressure;
         this.humidity = humidity;

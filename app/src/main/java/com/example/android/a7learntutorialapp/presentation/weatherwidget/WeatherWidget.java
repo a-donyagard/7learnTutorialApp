@@ -8,7 +8,7 @@ import android.content.Intent;
 import android.widget.RemoteViews;
 
 import com.example.android.a7learntutorialapp.R;
-import com.example.android.a7learntutorialapp.data.model.WeatherInfo;
+import com.example.android.a7learntutorialapp.data.model.Weather.WeatherInfo;
 
 /**
  * Implementation of App Widget functionality.

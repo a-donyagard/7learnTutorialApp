@@ -8,7 +8,7 @@ import android.os.IBinder;
 import androidx.annotation.Nullable;
 
 import com.example.android.a7learntutorialapp.data.cloud.ApiService;
-import com.example.android.a7learntutorialapp.data.model.WeatherInfo;
+import com.example.android.a7learntutorialapp.data.model.Weather.WeatherInfo;
 
 
 public class WeatherInfoDownloaderService extends Service {

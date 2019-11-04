@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.android.a7learntutorialapp.R;
 import com.example.android.a7learntutorialapp.data.cloud.RetrofitGenerator;
 import com.example.android.a7learntutorialapp.data.cloud.WeatherDataSource;
-import com.example.android.a7learntutorialapp.data.model.WeatherResponse;
+import com.example.android.a7learntutorialapp.data.model.Weather.WeatherResponse;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -83,15 +83,15 @@ public class WeatherSampleActivity extends AppCompatActivity {
     public void onReceived(WeatherResponse weatherResponse) {
         if (weatherResponse != null) {
             //show information to user
-            txtWeatherName.setText(String.format("آب و هوای فعلی: %s", weatherResponse.getCityName()));
-//            txtWeatherDescription.setText("توضیحات: ");
-            txtTemp.setText(String.format("دمای فعلی: %s", weatherResponse.getCityWeather().getTemperature()));
-            txtHumidity.setText(String.format("رطوبت هوا: %s", String.valueOf(weatherResponse.getCityWeather().getHumidity())));
-            txtPressure.setText(String.format("میزان فشار هوا: %s", String.valueOf(weatherResponse.getCityWeather().getPressure())));
-            txtMinTemp.setText(String.format("کم ترین دما: %s", String.valueOf(weatherResponse.getCityWeather().getMinTemp())));
-            txtMaxTemp.setText(String.format("بیشترین دما: %s", String.valueOf(weatherResponse.getCityWeather().getMaxTemp())));
-//            txtWindSpeed.setText(String.format("سرعت باد: %s", String.valueOf(weatherInfo.getWindSpeed())));
-//            txtWindDegree.setText(String.format("درجه ی باد: %s", String.valueOf(weatherInfo.getWindDegree())));
+            txtWeatherName.setText(String.format("آب و هوای فعلی: %s", weatherResponse.getWeatherMainState().get(0).getMain()));
+            txtWeatherDescription.setText(String.format("توضیحات: %s", weatherResponse.getWeatherMainState().get(0).getDescription()));
+            txtTemp.setText(String.format("دمای فعلی: %s", weatherResponse.getWeatherDetailState().getTemperature()));
+            txtHumidity.setText(String.format("رطوبت هوا: %s", String.valueOf(weatherResponse.getWeatherDetailState().getHumidity())));
+            txtPressure.setText(String.format("میزان فشار هوا: %s", String.valueOf(weatherResponse.getWeatherDetailState().getPressure())));
+            txtMinTemp.setText(String.format("کم ترین دما: %s", String.valueOf(weatherResponse.getWeatherDetailState().getMinTemp())));
+            txtMaxTemp.setText(String.format("بیشترین دما: %s", String.valueOf(weatherResponse.getWeatherDetailState().getMaxTemp())));
+            txtWindSpeed.setText(String.format("سرعت باد: %s", String.valueOf(weatherResponse.getWeatherWind().getSpeed())));
+            txtWindDegree.setText(String.format("درجه ی باد: %s", String.valueOf(weatherResponse.getWeatherWind().getDegree())));
         } else {
             Toast.makeText(this, "خطا در دریافت اطلاعات", Toast.LENGTH_LONG).show();
         }

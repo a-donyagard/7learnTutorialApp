@@ -1,7 +1,7 @@
 package com.example.android.a7learntutorialapp.data.cloud;
 
 import com.example.android.a7learntutorialapp.data.model.User;
-import com.example.android.a7learntutorialapp.data.model.WeatherResponse;
+import com.example.android.a7learntutorialapp.data.model.Weather.WeatherResponse;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;

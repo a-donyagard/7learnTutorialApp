@@ -1,4 +1,4 @@
-package com.example.android.a7learntutorialapp.data.model;
+package com.example.android.a7learntutorialapp.data.model.Weather;
 
 import android.os.Parcel;
 import android.os.Parcelable;
