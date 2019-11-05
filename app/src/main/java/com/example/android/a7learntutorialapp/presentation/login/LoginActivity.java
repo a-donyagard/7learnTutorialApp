@@ -14,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.android.a7learntutorialapp.data.cloud.ApiService;
 import com.example.android.a7learntutorialapp.R;
 import com.example.android.a7learntutorialapp.data.local.UserSharedPrefManager;
+import com.example.android.a7learntutorialapp.data.model.RegisterUser.UserInfo;
+import com.example.android.a7learntutorialapp.data.model.RegisterUser.RegisterUserResponse;
 import com.example.android.a7learntutorialapp.presentation.main.MainActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -59,16 +61,17 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 final String email = emailEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
+                UserInfo userInfo = new UserInfo(email,password);
                 final UserSharedPrefManager sharedPrefManager = new UserSharedPrefManager(LoginActivity.this);
                 if (isSigningUp) {
                     if (!email.isEmpty() && !password.isEmpty()) {
                         if (password.length() >= 4) {
                             if (isEmailValid(email)) {
                                 ApiService apiService = new ApiService(LoginActivity.this);
-                                apiService.signUpUser(email, password, new ApiService.OnSignupComplete() {
+                                apiService.signUpUser(userInfo, new ApiService.OnSignupComplete() {
                                     @Override
-                                    public void onSignUp(int responseStatus) {
-                                        switch (responseStatus) {
+                                    public void onSignUp(RegisterUserResponse registerUserResponse) {
+                                        switch (registerUserResponse.getRegisterResponse()) {
                                             case ApiService.STATUS_EMAIL_EXIST:
                                                 Toast.makeText(LoginActivity.this, "کاربری با این ایمیل موجود است.", Toast.LENGTH_SHORT).show();
                                                 break;
@@ -99,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
                 } else {
                     if (!email.isEmpty() && !password.isEmpty()) {
                         ApiService apiService = new ApiService(LoginActivity.this);
-                        apiService.loginUser(email, password, new ApiService.OnLoginResponse() {
+                        apiService.loginUser(userInfo, new ApiService.OnLoginResponse() {
                             @Override
                             public void onResponse(boolean success) {
                                 if (success) {

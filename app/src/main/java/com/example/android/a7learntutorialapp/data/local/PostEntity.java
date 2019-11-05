@@ -4,23 +4,30 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.google.gson.annotations.SerializedName;
+
 @Entity(tableName = "roomtbl_posts")
 public class PostEntity {
 
     @PrimaryKey
     @ColumnInfo(name = "col_id")
+    @SerializedName("id")
     private int id;
 
     @ColumnInfo(name = "col_post_image_url")
+    @SerializedName("image_url")
     private String postImageUrl;
 
     @ColumnInfo(name = "col_title")
+    @SerializedName("title")
     private String title;
 
     @ColumnInfo(name = "col_content")
+    @SerializedName("content")
     private String content;
 
     @ColumnInfo(name = "col_date")
+    @SerializedName("date")
     private String date;
 
     @ColumnInfo(name = "col_is_visited")

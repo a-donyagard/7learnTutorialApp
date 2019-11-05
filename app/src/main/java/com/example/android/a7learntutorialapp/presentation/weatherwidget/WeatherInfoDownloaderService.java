@@ -40,37 +40,18 @@ public class WeatherInfoDownloaderService extends Service {
         filter.addAction(WeatherWidget.INTENT_ACTION_UPDATE_DATA);
         this.registerReceiver(weatherWidget,filter);
 
-        weatherDataSource = RetrofitGenerator.getWeatherDataSource();
-        Call<WeatherResponse> call = weatherDataSource.getCurrentWeather("shahin dezh", "0067ea3ffc9cad0548529afa3639f76f");
-        call.enqueue(new Callback<WeatherResponse>() {
-            @Override
-            public void onResponse(Call<WeatherResponse> call, Response<WeatherResponse> response) {
-                if (response.isSuccessful()) {
-                    Intent sendDataIntent = new Intent(WeatherWidget.INTENT_ACTION_UPDATE_DATA);
-                    sendDataIntent.putExtra("data", response.body());
-                    sendBroadcast(sendDataIntent);
-                }
-                stopSelf();
-            }
-
-            @Override
-            public void onFailure(Call<WeatherResponse> call, Throwable t) {
-
-            }
-        });
-
-        /*ApiService apiService = new ApiService(this);
+        ApiService apiService = new ApiService(this);
         apiService.getCurrentWeather(new ApiService.OnWeatherInfoReceived() {
             @Override
-            public void onReceived(WeatherInfo weatherInfo) {
-                if (weatherInfo != null) {
+            public void onReceived(WeatherResponse weatherResponse) {
+                if (weatherResponse != null) {
                     Intent sendDataIntent = new Intent(WeatherWidget.INTENT_ACTION_UPDATE_DATA);
-                    sendDataIntent.putExtra("data", weatherInfo);
+                    sendDataIntent.putExtra("data", weatherResponse);
                     sendBroadcast(sendDataIntent);
                 }
                 stopSelf();
             }
-        }, cityName);*/
+        }, cityName);
 
 
 
