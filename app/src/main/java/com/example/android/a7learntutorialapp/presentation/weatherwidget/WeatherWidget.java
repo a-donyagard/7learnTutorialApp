@@ -9,6 +9,7 @@ import android.widget.RemoteViews;
 
 import com.example.android.a7learntutorialapp.R;
 import com.example.android.a7learntutorialapp.data.model.Weather.WeatherInfo;
+import com.example.android.a7learntutorialapp.data.model.Weather.WeatherResponse;
 
 /**
  * Implementation of App Widget functionality.
@@ -18,13 +19,13 @@ public class WeatherWidget extends AppWidgetProvider {
     public static final String INTENT_ACTION_UPDATE_DATA = "com.example.android.a7learntutorialapp.UPDATE_DATA";
 
     public static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
-                                       int appWidgetId, WeatherInfo weatherInfo, String cityName) {
+                                       int appWidgetId, WeatherResponse weatherResponse, String cityName) {
         // Construct the RemoteViews object
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.weather_widget);
-        remoteViews.setTextViewText(R.id.text_weather_temp, String.valueOf((int) (weatherInfo.getWeatherTemprature() - 273.15)) + "\u00b0");
+        remoteViews.setTextViewText(R.id.text_weather_temp, String.valueOf((int) (weatherResponse.getWeatherDetailState().getTemperature() - 273.15)) + "\u00b0");
         remoteViews.setTextViewText(R.id.text_city_name, cityName);
 
-        switch (weatherInfo.getWeatherId() / 100) {
+        switch (weatherResponse.getWeatherId() / 100) {
             case 2:
                 remoteViews.setImageViewResource(R.id.icon_weather, R.drawable.thunderstorm);
                 break;
@@ -46,7 +47,7 @@ public class WeatherWidget extends AppWidgetProvider {
             default:
                 remoteViews.setImageViewResource(R.id.icon_weather, R.drawable.clear_sky);
         }
-        if (weatherInfo.getWeatherId() / 10 == 80)
+        if (weatherResponse.getWeatherId() / 10 == 80)
             remoteViews.setImageViewResource(R.id.icon_weather, R.drawable.clouds);
 
         // Instruct the widget manager to update the widget
@@ -64,12 +65,12 @@ public class WeatherWidget extends AppWidgetProvider {
         super.onReceive(context, intent);
 
         if (intent.getAction().equals(INTENT_ACTION_UPDATE_DATA)) {
-            WeatherInfo weatherInfo = intent.getParcelableExtra("data");
+            WeatherResponse weatherResponse = intent.getParcelableExtra("data");
             AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
             int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(context, WeatherWidget.class));
 
             for (int i = 0; i < appWidgetIds.length; i++) {
-                updateAppWidget(context, appWidgetManager, appWidgetIds[i], weatherInfo, cityName);
+                updateAppWidget(context, appWidgetManager, appWidgetIds[i], weatherResponse, cityName);
             }
         }
     }
