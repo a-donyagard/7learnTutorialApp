@@ -12,6 +12,7 @@ import com.example.android.a7learntutorialapp.data.cloud.RetrofitGenerator;
 import com.example.android.a7learntutorialapp.data.cloud.WeatherDataSource;
 import com.example.android.a7learntutorialapp.data.model.Weather.WeatherInfo;
 import com.example.android.a7learntutorialapp.data.model.Weather.WeatherResponse;
+import com.example.android.a7learntutorialapp.data.repository.WeatherRepository;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -21,7 +22,6 @@ import retrofit2.Response;
 public class WeatherInfoDownloaderService extends Service {
     private String cityName = "Shahin Dezh";
     private WeatherWidget weatherWidget = new WeatherWidget();
-    private WeatherDataSource weatherDataSource;
 
     @Nullable
     @Override
@@ -40,8 +40,8 @@ public class WeatherInfoDownloaderService extends Service {
         filter.addAction(WeatherWidget.INTENT_ACTION_UPDATE_DATA);
         this.registerReceiver(weatherWidget,filter);
 
-        ApiService apiService = new ApiService(this);
-        apiService.getCurrentWeather(new ApiService.OnWeatherInfoReceived() {
+        WeatherRepository weatherRepository = new WeatherRepository();
+        weatherRepository.getCurrentWeather(cityName, new WeatherRepository.OnWeatherInfoReceived() {
             @Override
             public void onReceived(WeatherResponse weatherResponse) {
                 if (weatherResponse != null) {
@@ -51,8 +51,7 @@ public class WeatherInfoDownloaderService extends Service {
                 }
                 stopSelf();
             }
-        }, cityName);
-
+        });
 
 
         return START_NOT_STICKY;

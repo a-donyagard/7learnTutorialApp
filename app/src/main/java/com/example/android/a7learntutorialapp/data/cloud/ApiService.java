@@ -25,7 +25,6 @@ import retrofit2.Response;
 public class ApiService {
     private static final String TAG = "ApiService";
     private Context context;
-    private WeatherDataSource weatherDataSource;
 
 
     public ApiService(Context context) {
@@ -34,7 +33,7 @@ public class ApiService {
 
     public void getCurrentWeather(final OnWeatherInfoReceived onWeatherInfoReceived, String cityName) {
 
-        weatherDataSource = RetrofitGenerator.getWeatherDataSource();
+        WeatherDataSource weatherDataSource = RetrofitGenerator.getWeatherDataSource();
         Call<WeatherResponse> call = weatherDataSource.getCurrentWeather(cityName, "0067ea3ffc9cad0548529afa3639f76f");
         call.enqueue(new Callback<WeatherResponse>() {
             @Override
@@ -103,23 +102,6 @@ public class ApiService {
 
 
     public void getPosts(final OnPostsReceived onPostsReceived) {
-
-        PostsDataSource postsDataSource = RetrofitGenerator.getPostsDataSource();
-        Call<List<PostEntity>> posts = postsDataSource.getPosts();
-        posts.enqueue(new Callback<List<PostEntity>>() {
-            @Override
-            public void onResponse(Call<List<PostEntity>> call, retrofit2.Response<List<PostEntity>> response) {
-                if(response.isSuccessful()){
-                    onPostsReceived.onReceived(response.body());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<PostEntity>> call, Throwable t) {
-
-            }
-        });
-
 
         /*JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, "http://192.168.1.106/7learn/getposts.php", null, new Response.Listener<JSONArray>() {
             @Override

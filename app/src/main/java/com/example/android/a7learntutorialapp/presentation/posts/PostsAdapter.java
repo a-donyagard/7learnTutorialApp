@@ -32,7 +32,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.NewsViewHold
         this.posts = posts;
     }
 
-    /* public void addPosts(List<PostEntity> posts) {
+    /* public void addPostsDb(List<PostEntity> posts) {
         this.posts.addAll(posts);
         notifyDataSetChanged();
     } */

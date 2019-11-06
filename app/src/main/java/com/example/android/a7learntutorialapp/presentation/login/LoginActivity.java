@@ -10,12 +10,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.example.android.a7learntutorialapp.data.cloud.ApiService;
 import com.example.android.a7learntutorialapp.R;
 import com.example.android.a7learntutorialapp.data.local.UserSharedPrefManager;
 import com.example.android.a7learntutorialapp.data.model.RegisterUser.UserInfo;
 import com.example.android.a7learntutorialapp.data.model.RegisterUser.RegisterUserResponse;
+import com.example.android.a7learntutorialapp.data.repository.SignUpRepository;
 import com.example.android.a7learntutorialapp.presentation.main.MainActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -23,6 +27,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private Button changeAuthenticationState;
     private boolean isSigningUp = false;
+    private SignUpViewModel mSignUpViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,22 +68,23 @@ public class LoginActivity extends AppCompatActivity {
                 String password = passwordEditText.getText().toString();
                 UserInfo userInfo = new UserInfo(email,password);
                 final UserSharedPrefManager sharedPrefManager = new UserSharedPrefManager(LoginActivity.this);
+                mSignUpViewModel = ViewModelProviders.of(LoginActivity.this).get(SignUpViewModel.class);
                 if (isSigningUp) {
                     if (!email.isEmpty() && !password.isEmpty()) {
                         if (password.length() >= 4) {
                             if (isEmailValid(email)) {
-                                ApiService apiService = new ApiService(LoginActivity.this);
-                                apiService.signUpUser(userInfo, new ApiService.OnSignupComplete() {
+                                mSignUpViewModel.signUpUser(userInfo);
+                                mSignUpViewModel.getRegisterUserResponse().observe(LoginActivity.this, new Observer<RegisterUserResponse>() {
                                     @Override
-                                    public void onSignUp(RegisterUserResponse registerUserResponse) {
+                                    public void onChanged(RegisterUserResponse registerUserResponse) {
                                         switch (registerUserResponse.getRegisterResponse()) {
-                                            case ApiService.STATUS_EMAIL_EXIST:
+                                            case SignUpRepository.STATUS_EMAIL_EXIST:
                                                 Toast.makeText(LoginActivity.this, "کاربری با این ایمیل موجود است.", Toast.LENGTH_SHORT).show();
                                                 break;
-                                            case ApiService.STATUS_FAILED:
+                                            case SignUpRepository.STATUS_FAILED:
                                                 Toast.makeText(LoginActivity.this, "متاسفانه ثبت نام انجام نشد.", Toast.LENGTH_SHORT).show();
                                                 break;
-                                            case ApiService.STATUS_SUCCESS:
+                                            case SignUpRepository.STATUS_SUCCESS:
                                                 Toast.makeText(LoginActivity.this, "ثبت نام با موفقیت انجام شد", Toast.LENGTH_SHORT).show();
 
                                                 sharedPrefManager.saveUserLoginInfo(email);
@@ -101,10 +107,10 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 } else {
                     if (!email.isEmpty() && !password.isEmpty()) {
-                        ApiService apiService = new ApiService(LoginActivity.this);
-                        apiService.loginUser(userInfo, new ApiService.OnLoginResponse() {
+                        mSignUpViewModel.loginUser(userInfo);
+                        mSignUpViewModel.getLoginUserResponse().observe(LoginActivity.this, new Observer<Boolean>() {
                             @Override
-                            public void onResponse(boolean success) {
+                            public void onChanged(Boolean success) {
                                 if (success) {
                                     Toast.makeText(LoginActivity.this, "خوش آمدید", Toast.LENGTH_SHORT).show();
                                     sharedPrefManager.saveUserLoginInfo(email);

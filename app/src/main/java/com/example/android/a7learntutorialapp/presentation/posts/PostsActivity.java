@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -51,7 +52,7 @@ public class PostsActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         postsAdapter.clear();
-                        postsAdapter.addPosts(getFakePosts());
+                        postsAdapter.addPostsDb(getFakePosts());
                         swipeRefreshLayout.setRefreshing(false);
                     }
                 }, 2000);
@@ -66,7 +67,7 @@ public class PostsActivity extends AppCompatActivity {
 
         //new way by ROOM and ViewModel
         mPostViewModel = ViewModelProviders.of(this).get(PostViewModel.class);
-        mPostViewModel.getPosts().observe(this, new Observer<List<PostEntity>>() {
+        mPostViewModel.getPostsDb().observe(this, new Observer<List<PostEntity>>() {
             @Override
             public void onChanged(@Nullable final List<PostEntity> posts) {
                 // Update the cached copy of the words in the adapter.
@@ -74,20 +75,22 @@ public class PostsActivity extends AppCompatActivity {
             }
         });
 
-        ApiService apiService = new ApiService(this);
-        apiService.getPosts(new ApiService.OnPostsReceived() {
+        mPostViewModel.getPostsApi();
+        mPostViewModel.getPostsApiLiveData().observe(this, new Observer<List<PostEntity>>() {
             @Override
-            public void onReceived(List<PostEntity> posts) {
-                PostsActivity.this.posts = posts;
+            public void onChanged(List<PostEntity> postEntities) {
+                PostsActivity.this.posts = postEntities;
 
                 //old way by sqlite
 //                SevenLearnDatabaseOpenHelper openHelper = new SevenLearnDatabaseOpenHelper(PostsActivity.this);
-//                openHelper.addPosts(posts);
+//                openHelper.addPostsDb(posts);
 
-                mPostViewModel.addPosts(posts);
+                mPostViewModel.addPostsDb(postEntities);
 
-                PostsAdapter postsAdapter = new PostsAdapter(PostsActivity.this, posts);
+                PostsAdapter postsAdapter = new PostsAdapter(PostsActivity.this, postEntities);
                 recyclerView.setAdapter(postsAdapter);
+            }
+        });
 
                 /*
                 //چک کردن و درخواست پرمیژن نوشتن در کارت حافظه از کاربر و سپس ذخیره عکس ها در کارت حافظه
@@ -100,8 +103,6 @@ public class PostsActivity extends AppCompatActivity {
                 } else {
                     saveImagesInSdCard();
                 } */
-            }
-        });
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -124,7 +125,7 @@ public class PostsActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(PostsActivity.this, LinearLayoutManager.VERTICAL, false));
 
         /* postsAdapter = new PostsAdapter(this);
-        postsAdapter.addPosts(getFakePosts());
+        postsAdapter.addPostsDb(getFakePosts());
         recyclerView.setAdapter(postsAdapter);
 
         InfiniteScrollProvider infiniteScrollProvider = new InfiniteScrollProvider();
@@ -136,7 +137,7 @@ public class PostsActivity extends AppCompatActivity {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        postsAdapter.addPosts(DataFakeGenerator.getPosts(page));
+                        postsAdapter.addPostsDb(DataFakeGenerator.getPostsDb(page));
                         progressBar.setVisibility(View.GONE);
                     }
                 }, 2000);
@@ -147,7 +148,7 @@ public class PostsActivity extends AppCompatActivity {
 
     /* private void getPostsFromDatabase() {
         SevenLearnDatabaseOpenHelper databaseOpenHelper = new SevenLearnDatabaseOpenHelper(this);
-        List<PostEntity> posts = databaseOpenHelper.getPosts();
+        List<PostEntity> posts = databaseOpenHelper.getPostsDb();
         PostsAdapter postsAdapter = new PostsAdapter(this, posts);
         recyclerView.setAdapter(postsAdapter);
     } */
@@ -176,6 +177,6 @@ public class PostsActivity extends AppCompatActivity {
     }
 
     /* private List<PostEntity> getFakePosts() {
-        return DataFakeGenerator.getPosts(page);
+        return DataFakeGenerator.getPostsDb(page);
     } */
 }

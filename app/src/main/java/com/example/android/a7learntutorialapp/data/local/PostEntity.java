@@ -2,6 +2,7 @@ package com.example.android.a7learntutorialapp.data.local;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
@@ -33,6 +34,7 @@ public class PostEntity {
     @ColumnInfo(name = "col_is_visited")
     private int isVisited = 0;
 
+    @Ignore
     public PostEntity(int id, String postImageUrl, String title, String content, String date, int isVisited) {
         this.id = id;
         this.postImageUrl = postImageUrl;
